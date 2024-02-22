@@ -1,27 +1,29 @@
 @extends('layout.main')
 
 @section('title')
-    Manage Blocks
+    Manage Departments
 @endsection
 
 @section('breadcrumbs')
-    @include('layout.breadcrumbs', ['title' => 'Manage Blocks'])
+    @include('layout.breadcrumbs', ['title' => 'Departments'])
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
+
             @if (session()->has('success'))
                 {!! ShowAlert('success', session()->get('success'), 'Success') !!}
             @endif
 
-            <a href="{{ route('blocks.create') }}" class="btn btn-primary float-end btn-sm">Register Block</a>
+            <a href="{{ route('departments.create') }}" class="btn btn-primary btn-sm right">Register Department</a>
             <br><br>
-            <table class="table table-bordered table-sm table-small small table-hover table-striped" id="tblBlocks">
+            <table id="tblDepartments" class="table small table-hover table-striped">
                 <thead>
                     <tr>
-                        <th>Block ID</th>
+                        <th>Department ID</th>
                         <th>Name</th>
+                        <th>Block</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
@@ -34,15 +36,15 @@
 
 @push('script')
     <script>
-        var table = $('#tblBlocks').DataTable({
+        var table = $('#tblDepartments').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('blocks.index') }}",
+            ajax: "{{ route('departments.index') }}",
             columns: [{
                     data: 'id',
                     name: 'id',
                     render: function(resp) {
-                        return "BLOCK-" + resp;
+                        return "DEPT-" + resp;
                     }
                 },
                 {
@@ -50,8 +52,15 @@
                     name: 'name'
                 },
                 {
-                    data:'description',
-                    name:'description'
+                    data: 'block',
+                    name: 'block',
+                    render: function(resp) {
+                        return resp.name;
+                    }
+                },
+                {
+                    data: 'description',
+                    name: 'description'
                 },
                 {
                     data: 'action',

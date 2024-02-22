@@ -30,6 +30,7 @@
 
                 <ul>
                     <li><a href="{{route('blocks.index')}}"><span class="title">Manage Blocks</span></a></li>
+                    <li><a href="{{route('departments.index')}}"><span class="title">Manage Departments</span></a></li>
                 </ul>
             </li>
 
