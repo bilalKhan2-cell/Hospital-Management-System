@@ -36,7 +36,7 @@
 
 @push('script')
     <script>
-        var table = $('#tblDepartments').DataTable({
+        let table = $('#tblDepartments').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('departments.index') }}",

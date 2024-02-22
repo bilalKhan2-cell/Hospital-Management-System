@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\{
+    Department,
+    Block,
+    Ward,
+    Designation
+};
 
 class User extends Authenticatable
 {
@@ -21,6 +27,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'block_id',
+        'department_id',
+        'ward_id',
+        'pass_code',
+        'address',
+        'cnic',
+        'contact_info',
+        'designation_id'
     ];
 
     /**
@@ -42,4 +56,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function user_ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward_id');
+    }
+
+    public function user_block()
+    {
+        return $this->belongsTo(Block::class, 'block_id');
+    }
+
+    public function user_department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function user_designation(){
+        return $this->belongsTo(Designation::class,'designation_id');
+    }
 }

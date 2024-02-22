@@ -1,32 +1,33 @@
 @extends('layout.main')
 
 @section('title')
-    Manage Blocks
+    Manage Wards
 @endsection
 
 @section('breadcrumbs')
-    @include('layout.breadcrumbs', ['title' => 'Manage Blocks'])
+    @include('layout.breadcrumbs', ['title' => 'Manage Wards'])
 @endsection
 
 @section('content')
     <div class="row">
         <div class="col-sm-12">
+
             @if (session()->has('success'))
                 {!! ShowAlert('success', session()->get('success'), 'Success') !!}
             @endif
 
-            <a href="{{ route('blocks.create') }}" class="btn btn-primary float-end btn-sm">Register Block</a>
+            <a href="{{ route('wards.create') }}" class="btn btn-btn btn-primary btn-sm">Register Ward</a>
             <br><br>
-            <table class="table table-bordered table-sm table-small small table-hover table-striped" id="tblBlocks">
+            <table id="tblWards" class="table table-hover table-striped small">
                 <thead>
                     <tr>
-                        <th>Block ID</th>
+                        <th>Ward ID</th>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th>Department</th>
+                        <th>Block</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
             </table>
         </div>
     </div>
@@ -34,15 +35,16 @@
 
 @push('script')
     <script>
-        var table = $('#tblBlocks').DataTable({
+        var
+        let = $('#tblWards').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('blocks.index') }}",
+            ajax: "{{ route('wards.index') }}",
             columns: [{
                     data: 'id',
                     name: 'id',
                     render: function(resp) {
-                        return "BLOCK-" + resp;
+                        return "WARD-" + resp;
                     }
                 },
                 {
@@ -50,8 +52,18 @@
                     name: 'name'
                 },
                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'department',
+                    name: 'department',
+                    render: function(resp) {
+                        return resp.name;
+                    }
+                },
+                {
+                    data: 'department.block',
+                    name: 'department.block',
+                    render: function(data) {
+                        return data.name;
+                    }
                 },
                 {
                     data: 'action',

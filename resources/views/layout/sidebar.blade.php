@@ -22,6 +22,15 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{route('users.index')}}">
+                    <div class="gui-icon">
+                        <i class="md md-person"></i>
+                    </div>
+                    <span class="title">Users</span>
+                </a>
+            </li>
+
             <li class="gui-folder">
                 <a>
                     <div class="gui-icon"><i class="md md-settings"></i></div>
@@ -29,8 +38,11 @@
                 </a>
 
                 <ul>
-                    <li><a href="{{route('blocks.index')}}"><span class="title">Manage Blocks</span></a></li>
-                    <li><a href="{{route('departments.index')}}"><span class="title">Manage Departments</span></a></li>
+                    <li><a href="{{ route('designations.index') }}"><span class="title">Manage Designations</span></a></li>
+                    <li><a href="{{ route('blocks.index') }}"><span class="title">Manage Blocks</span></a></li>
+                    <li><a href="{{ route('departments.index') }}"><span class="title">Manage Departments</span></a>
+                    </li>
+                    <li><a href="{{ route('wards.index') }}"><span class="title">Manage Wards</span></a></li>
                 </ul>
             </li>
 

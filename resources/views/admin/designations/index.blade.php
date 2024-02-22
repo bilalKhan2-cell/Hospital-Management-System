@@ -1,11 +1,11 @@
 @extends('layout.main')
 
 @section('title')
-    Manage Blocks
+    Manage Designations
 @endsection
 
 @section('breadcrumbs')
-    @include('layout.breadcrumbs', ['title' => 'Manage Blocks'])
+    @include('layout.breadcrumbs', ['title' => 'Manage Designations'])
 @endsection
 
 @section('content')
@@ -15,12 +15,11 @@
                 {!! ShowAlert('success', session()->get('success'), 'Success') !!}
             @endif
 
-            <a href="{{ route('blocks.create') }}" class="btn btn-primary float-end btn-sm">Register Block</a>
+            <a href="{{ route('designations.create') }}" class="btn btn-primary float-end btn-sm">Create Designation</a>
             <br><br>
-            <table class="table table-bordered table-sm table-small small table-hover table-striped" id="tblBlocks">
+            <table class="table table-bordered table-sm table-small small table-hover table-striped" id="tblDesignations">
                 <thead>
                     <tr>
-                        <th>Block ID</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Action</th>
@@ -34,24 +33,17 @@
 
 @push('script')
     <script>
-        var table = $('#tblBlocks').DataTable({
+        var table = $('#tblDesignations').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('blocks.index') }}",
+            ajax: "{{ route('designations.index') }}",
             columns: [{
-                    data: 'id',
-                    name: 'id',
-                    render: function(resp) {
-                        return "BLOCK-" + resp;
-                    }
-                },
-                {
                     data: 'name',
                     name: 'name'
                 },
                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'comments',
+                    name: 'comments'
                 },
                 {
                     data: 'action',

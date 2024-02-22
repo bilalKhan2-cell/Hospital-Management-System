@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    {!! Form::open(['route' => ['departments.update',$department->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['departments.update', $department->id], 'method' => 'PUT']) !!}
 
     <div class="row">
         <div class="col-sm-4">
@@ -25,7 +25,10 @@
         <div class="col-sm-8">
             <div class="form-group">
                 {!! Form::label('Comments (if any):', '') !!}
-                {!! Form::text('description', $department->description, ['class' => 'form-control', 'id' => 'txtDepartmentDescrption']) !!}
+                {!! Form::text('description', $department->description, [
+                    'class' => 'form-control',
+                    'id' => 'txtDepartmentDescrption',
+                ]) !!}
             </div>
         </div>
     </div>
@@ -34,7 +37,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Select Block', '') !!}
-                {!! Form::select('block', $blocks ,$department->block->id, ['class' => 'form-control', 'id' => 'slctBlock']) !!}
+                {!! Form::select('block', $blocks, $department->block->id, ['class' => 'form-control', 'id' => 'slctBlock']) !!}
             </div>
         </div>
 
