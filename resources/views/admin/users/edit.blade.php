@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    {!! Form::open(['route' => ['users.store', $user->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['users.update', $user->id], 'method' => 'PUT']) !!}
 
     <div class="row">
         <div class="col-sm-4">
@@ -65,8 +65,8 @@
 
         <div class="col-sm-4">
             <div class="form-group">
-                {!! Form::label('Sekect Designation', '') !!}
-                {!! Form::select('designation', $designations, $user->desingation->id, [
+                {!! Form::label('Select Designation', '') !!}
+                {!! Form::select('designation_id', $designations, $user->desingation_id, [
                     'class' => 'form-control',
                     'id' => 'slctAccountStatus',
                 ]) !!}
@@ -85,7 +85,7 @@
 
         <div class="col-sm-4">
             <div class="form-group">
-                {{ Form::submit('Register', ['class' => 'btn mt-2  btn-sm btn-success']) }}
+                {{ Form::submit('Update', ['class' => 'btn mt-2 btn-sm btn-primary']) }}
                 <a href="{{ route('users.index') }}" class="btn  mt-2 btn-sm btn-danger">Cancel</a>
             </div>
         </div>

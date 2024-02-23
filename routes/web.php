@@ -17,6 +17,9 @@ Route::resource('wards', WardController::class);
 Route::resource('users', UserController::class);
 Route::resource('designations',DesignationController::class);
 
+Route::get('/users/manage_assignemnt',[UserController::class,'show_modal'])->name('users.manage_assignment');
+Route::post('/users/assign_role',[UserController::class,'assign_role'])->name('users.assign_user_role');
+
 Route::get('/profile', function () {
     return view('admin.profile');
 });

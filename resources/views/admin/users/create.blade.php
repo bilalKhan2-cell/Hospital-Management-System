@@ -65,8 +65,8 @@
 
         <div class="col-sm-4">
             <div class="form-group">
-                {!! Form::label('Sekect Designation', '') !!}
-                {!! Form::select('designation', $designations, '', [
+                {!! Form::label('Select Designation', '') !!}
+                {!! Form::select('designation_id', $designations, '', [
                     'class' => 'form-control',
                     'id' => 'slctAccountStatus',
                 ]) !!}
