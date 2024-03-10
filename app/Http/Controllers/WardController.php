@@ -44,6 +44,9 @@ class WardController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:wards,name|max:100'
+        ],[
+            'name.required' => "Ward Name is Required",
+            "name.unique" => "This Ward Name is Already Existed"
         ]);
 
         Ward::create([

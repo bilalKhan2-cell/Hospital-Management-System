@@ -23,7 +23,7 @@
             </li>
 
             <li>
-                <a href="{{route('users.index')}}">
+                <a href="{{ route('users.index') }}">
                     <div class="gui-icon">
                         <i class="md md-person"></i>
                     </div>
@@ -38,11 +38,24 @@
                 </a>
 
                 <ul>
-                    <li><a href="{{ route('designations.index') }}"><span class="title">Manage Designations</span></a></li>
+                    <li><a href="{{ route('designations.index') }}"><span class="title">Manage Designations</span></a>
+                    </li>
                     <li><a href="{{ route('blocks.index') }}"><span class="title">Manage Blocks</span></a></li>
                     <li><a href="{{ route('departments.index') }}"><span class="title">Manage Departments</span></a>
                     </li>
                     <li><a href="{{ route('wards.index') }}"><span class="title">Manage Wards</span></a></li>
+                </ul>
+            </li>
+
+            <li class="gui-folder">
+                <a>
+                    <div class="gui-icon"><i class="mdi mdi-account"></i>
+                    </div>
+                    <span class="title">Patients</span>
+                </a>
+
+                <ul>
+                    <li><a href="{{ route('patients.index') }}"><span class="title">Manage Patients</span></a></li>
                 </ul>
             </li>
 

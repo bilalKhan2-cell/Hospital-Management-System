@@ -62,10 +62,4 @@ class BlockController extends Controller
             return redirect()->route('blocks.index')->with('success',"Block's Details Updated Successfully..");
         }
     }
-
-
-    public function destroy(Block $block)
-    {
-        //
-    }
 }

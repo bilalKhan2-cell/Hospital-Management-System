@@ -9,13 +9,13 @@
 @endsection
 
 @section('content')
-    {!! Form::open(['route' => 'users.store', 'method' => 'POST']) !!}
+    {!! Form::open(['route' => 'users.store', 'method' => 'POST', 'class' => 'form-validate','novalidate']) !!}
 
     <div class="row">
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Username', '') !!}
-                {!! Form::text('Name', '', ['class' => 'form-control', 'id' => 'txtUsername']) !!}
+                {!! Form::text('name', '', ['class' => 'form-control', 'id' => 'txtUsername','required']) !!}
                 @error('name')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -25,7 +25,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Email', '') !!}
-                {!! Form::email('Email', '', ['class' => 'form-control', 'id' => 'txtUserEmail']) !!}
+                {!! Form::email('email', '', ['class' => 'form-control', 'id' => 'txtUserEmail','required']) !!}
                 @error('email')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -34,7 +34,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Contact Info', '') !!}
-                {!! Form::text('contact_info', '', ['class' => 'form-control', 'id' => 'txtContactInfo']) !!}
+                {!! Form::text('contact_info', '', ['class' => 'form-control', 'id' => 'txtContactInfo','required']) !!}
                 @error('contact_info')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -46,7 +46,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('CNIC', '') !!}
-                {!! Form::text('cnic', '', ['class' => 'form-control', 'id' => 'txtCNIC']) !!}
+                {!! Form::text('cnic', '', ['class' => 'form-control', 'id' => 'txtCNIC','required']) !!}
                 @error('cnic')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -49,9 +50,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $user = User::create($request->all());
+        $user = User::create($request->only(['name','email','cnic','contact_info','address','designation_id','status']));
         if ($user) {
             return redirect()->route('users.index')->with('success', 'User Registered Successfully..');
         }
