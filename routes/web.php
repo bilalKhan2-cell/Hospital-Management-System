@@ -24,4 +24,4 @@ Route::post('/users/assign_role',[UserController::class,'assign_role'])->name('u
 
 Route::get('/profile', function () {
     return view('admin.profile');
-});
+})->name('users.profile');

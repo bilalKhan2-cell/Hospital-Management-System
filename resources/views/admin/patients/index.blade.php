@@ -67,12 +67,12 @@
                     name: 'gender'
                 },
                 {
-                    data: 'contact_info',
-                    name: 'contact_info'
-                },
-                {
                     data: 'cnic',
                     name: 'cnic'
+                },
+                {
+                    data: 'contact_info',
+                    name: 'contact_info'
                 },
                 {
                     data: 'action',

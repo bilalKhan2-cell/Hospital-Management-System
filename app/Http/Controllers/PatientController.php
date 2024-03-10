@@ -50,7 +50,7 @@ class PatientController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $this->patient->where('id', $id)->update($request->all());
+        $this->patient->where('id', $id)->update($request->only('name','fname','age','gender','address','contact_info','cnic'));
         return redirect()->route('patients.index')->with('success', 'Patient Detail\'s Updated Successfully..');
     }
 }
