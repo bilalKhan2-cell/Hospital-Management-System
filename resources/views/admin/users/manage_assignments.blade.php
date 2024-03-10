@@ -1,6 +1,7 @@
 {!! Form::open(['route' => 'users.assign_user_role', 'method' => 'POST', 'id' => 'frmAssignRole']) !!}
 <div class="row">
     <div class="col-sm-3">
+        {{ Form::hidden('user_id', $userID, ['id' => 'txtUserID']) }}
         <div class="form-group">
             {!! Form::label('Select Department', '') !!}
             {!! Form::select('block_id', $blocks, '', [
@@ -12,7 +13,7 @@
     <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('Select Department', '') !!}
-            {!! Form::select('designation_id', $departments, '', [
+            {!! Form::select('ward_id', $wards, '', [
                 'class' => 'form-control',
                 'id' => 'slctUserDepartment',
             ]) !!}
@@ -21,7 +22,7 @@
     <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('Select Department', '') !!}
-            {!! Form::select('ward_id', $wards, '', [
+            {!! Form::select('department_id', $departments, '', [
                 'class' => 'form-control',
                 'id' => 'slctUserWard',
             ]) !!}

@@ -86,7 +86,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {{ Form::submit('Register', ['class' => 'btn mt-2  btn-sm btn-success']) }}
-                <a href="{{ route('uses.index') }}" class="btn  mt-2 btn-sm btn-danger">Cancel</a>
+                <a href="{{ route('users.index') }}" class="btn  mt-2 btn-sm btn-danger">Cancel</a>
             </div>
         </div>
     </div>

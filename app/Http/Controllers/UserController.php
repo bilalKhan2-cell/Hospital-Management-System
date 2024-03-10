@@ -32,7 +32,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn("action", function (User $user) {
                     $btn = '<a href="' . route('users.edit', $user->id) . '" class="edit btn btn-info btn-sm"><i class="md md-edit"></i></a>';
-                    $btn .= "&nbsp; &nbsp;<button data-target='#exampleModal' data-toggle='modal' onclick='ShowModal(" . $user->id . ")' class='btn btn-primary btn-sm'><i class='md md-launch'></i></button>";
+                    $btn .= "&nbsp; &nbsp;<button data-target='#exampleModal' data-toggle='modal' id='".$user->id."' onclick='ShowModal(" . $user->id . ")' class='btn btn-primary btn-sm'><i class='md md-launch'></i></button>";
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -83,6 +83,7 @@ class UserController extends Controller
             'departments' => Department::pluck('name','id'),
             'blocks' => Block::pluck('name','id'),
             'wards' => Ward::pluck('name','id'),
+            'userID' => $user_id
         ])->render();
 
         return response()->json(['html' => $modal_content]);
@@ -96,6 +97,9 @@ class UserController extends Controller
 
     public function assign_role(Request $request)
     {
-       return response()->json(['data' => $request]);
+        $user = User::find($request->user_id);
+        $user->update($request->only(['ward_id','block_id','department_id']));
+
+        return redirect()->back()->with('success','User Assignment Process Completed Successfully..');
     }
 }

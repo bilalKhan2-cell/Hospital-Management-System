@@ -127,7 +127,6 @@
         frmUserAssign.on('submit', function(e) {
             e.preventDefault();
             console.log('submitted');
-            // Additional code to handle form submission...
         });
     </script>
 @endpush
