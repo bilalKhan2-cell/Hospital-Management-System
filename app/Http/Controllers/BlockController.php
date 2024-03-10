@@ -31,9 +31,7 @@ class BlockController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|unique:blocks,name|max:100'
-        ]);
+        $request->validate(Block::$rules,Block::$messages);
 
         Block::create([
             'name' => $request->name,

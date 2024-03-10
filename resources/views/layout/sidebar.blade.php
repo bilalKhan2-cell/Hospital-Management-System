@@ -31,6 +31,15 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('doctors.index') }}">
+                    <div class="gui-icon">
+                        <i class="md md-person"></i>
+                    </div>
+                    <span class="title">Doctors</span>
+                </a>
+            </li>
+
             <li class="gui-folder">
                 <a>
                     <div class="gui-icon"><i class="md md-settings"></i></div>
