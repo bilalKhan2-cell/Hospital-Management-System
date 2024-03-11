@@ -66,7 +66,7 @@ class UserController extends Controller
     {
         return view('admin.users.edit', [
             'designations' => $this->designations,
-            'user' => $user->with('user_designation')->first()
+            'user' => $user->with('user_designation')->find($user->id)
         ]);
     }
 

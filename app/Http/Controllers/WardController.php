@@ -63,7 +63,7 @@ class WardController extends Controller
     {
         return view('admin.wards.edit', [
             'departments' => $this->departments,
-            'ward' => $ward->with('department')->first()
+            'ward' => $ward->with('department')->find($ward->id)
         ]);
     }
 
@@ -83,13 +83,5 @@ class WardController extends Controller
             ]);
 
         return redirect()->route('wards.index')->with('success', 'Ward\'s Details Updated Successfully..');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ward $ward)
-    {
-        //
     }
 }

@@ -59,7 +59,7 @@ class DepartmentController extends Controller
 
     public function edit(Department $department)
     {
-        $department_data = $department->with('block')->first();
+        $department_data = $department->with('block')->find($department->id);
         return view('admin.departments.edit', [
             'department' => $department_data,
             'blocks' => $this->blocks
