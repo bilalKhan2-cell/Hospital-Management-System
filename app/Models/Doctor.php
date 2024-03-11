@@ -56,7 +56,8 @@ class Doctor extends Model
         "cnic" => "required|unique:doctors,cnic",
         "department_id" => "required",
         "joining_date" => "required|date",
-        'status' => 'required|numeric'
+        'status' => 'required|numeric',
+        'address' => 'required'
     ];
 
     public static $messages = [
@@ -75,7 +76,8 @@ class Doctor extends Model
         "department_id" => "Please Select Department",
         "joining_date.date" => "Invalid Joining Date Format",
         "joining_date.required" => "Joining Date is Required",
-        "status.numeric" => "Invalid Profile Status Provided"
+        "status.numeric" => "Invalid Profile Status Provided",
+        'address.required' => "Please Enter Address"
     ];
 
     public static function getRules(array $overrides = [])

@@ -17,6 +17,7 @@
         href="{{ asset('css/theme-default/material-design-iconic-font.min.css?1421434286') }}" />
     <link rel="stylesheet" href="{{ asset('css/theme-default/libs/DataTables/jquery.dataTables.css?1423553989') }}">
 
+    @stack('style')
 </head>
 
 <body class="menubar-hoverable header-fixed menubar-pin ">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -33,7 +34,10 @@ class DoctorController extends Controller
 
     public function create()
     {
-        return view('admin.doctors.create');
+        return view('admin.doctors.create', [
+            'specializations' => Doctor::$specializations,
+            'departments' => Department::pluck('name', 'id')
+        ]);
     }
 
     public function store(Request $request)
@@ -45,11 +49,16 @@ class DoctorController extends Controller
 
     public function edit($id)
     {
-        return view('admin.doctors.edit', ['doctor' => Doctor::find('$id')]);
+        return view('admin.doctors.edit', [
+            'specializations' => Doctor::$specializations,
+            'departments' => Department::pluck('name', 'id'),
+            'doctor' => Doctor::find($id)
+        ]);
     }
 
     public function update(Request $request, string $id)
     {
-        Doctor::where('id', $id)->update($request->only(['name', 'gender', 'user_id', 'dob', 'contact_info', 'address', 'specialization', 'email', 'cnic', 'department_id', 'joining_date', 'status']));
+        Doctor::where('id', $id)->update($request->only(['name', 'gender', 'dob', 'contact_info', 'address', 'specialization', 'email', 'cnic', 'department_id', 'joining_date', 'status']));
+        return redirect()->route('doctors.index')->with('success', 'Doctor Data Updated Successfully..');
     }
 }

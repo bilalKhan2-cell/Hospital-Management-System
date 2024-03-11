@@ -24,9 +24,9 @@ return new class extends Migration
             $table->bigInteger('department_id')->unsigned();
             $table->date('joining_date');
             $table->tinyInteger('status')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('department_id')->references('id')->on('users');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->timestamps();
         });
     }

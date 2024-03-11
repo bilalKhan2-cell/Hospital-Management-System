@@ -8,6 +8,14 @@
     @include('layout.breadcrumbs', ['title' => 'Manage Doctors'])
 @endsection
 
+@push('style')
+    <style>
+        .noarrow {
+            cursor: default;
+        }
+    </style>
+@endpush
+
 @section('content')
     @if (session()->has('success'))
         {!! ShowAlert('success', session()->get('success'), 'Success') !!}
@@ -19,9 +27,9 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>CNIC</th>
                 <th>Email</th>
                 <th>Contact Info</th>
+                <th>CNIC</th>
                 <th>Specialization</th>
                 <th>Department</th>
                 <th>Status</th>
@@ -45,16 +53,16 @@
                     name: 'name'
                 },
                 {
-                    data: 'cnic',
-                    name: 'cnic'
-                },
-                {
                     data: 'email',
                     name: 'email'
                 },
                 {
                     data: 'contact_info',
                     name: 'contact_info'
+                },
+                {
+                    data: 'cnic',
+                    name: 'cnic'
                 },
                 {
                     data: 'specialization',
@@ -71,8 +79,8 @@
                     data: 'status',
                     name: 'status',
                     render: function(result) {
-                        result == 0 ? "<span class='badge badge-danger'>Inactive</span>" :
-                            "<span class='badge badge-success'>Active</span>"
+                        return result == 0 ? "<span class='btn btn-xs btn-danger noarrow'>Inactive</span>" :
+                            "<span class='btn btn-xs btn-success noarrow'>Active</span>"
                     }
                 },
                 {
