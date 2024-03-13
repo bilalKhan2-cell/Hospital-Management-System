@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use App\Models\{User,Doctor};
 
 class Patient extends Model
 {
@@ -15,6 +15,10 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class,'doctor_id');
     }
 
     public static $rules = [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -18,7 +19,7 @@ class PatientController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of($this->patient->all())
+            return DataTables::of($this->patient->with('doctor')->get())
                 ->addIndexColumn()
                 ->addColumn("action", function ($id) {
                     $btn = '<a href="' . route('patients.edit', $id) . '" class="edit btn btn-info btn-sm"><i class="md md-edit"></i></a>';
@@ -32,7 +33,9 @@ class PatientController extends Controller
 
     public function create()
     {
-        return view('admin.patients.create');
+        return view('admin.patients.create',[
+            'doctors' => Doctor::pluck('name','id')
+        ]);
     }
 
     public function store(Request $request)
@@ -45,7 +48,7 @@ class PatientController extends Controller
 
     public function edit(string $id)
     {
-        return view('admin.patients.edit', ['patient' => $this->patient->find($id)]);
+        return view('admin.patients.edit', ['patient' => $this->patient->find($id),'doctors' => Doctor::pluck('name','id')]);
     }
 
     public function update(Request $request, string $id)

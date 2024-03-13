@@ -77,10 +77,10 @@ class UserController extends Controller
         $user = User::with('user_designation', 'user_ward', 'user_department', 'user_block')->find($user_id);
 
         $modal_content = view('admin.users.manage_assignments', [
-            'user_designation' => $user->user_designation == null ? 'Not Assigned Yet' : $user->user_designation,
-            'user_block' => $user->user_block == null ? 'Not Assigned Yet' : $user->user_block,
-            'user_ward' =>  $user->user_ward == null ? 'Not Assigned Yet' : $user->user_ward,
-            'user_department' =>  $user->user_department == null ? 'Not Assigned Yet' : $user->user_department,
+            'user_designation' => $user->user_designation == null ? 'Not Assigned Yet' : $user->user_designation->name,
+            'user_block' => $user->user_block == null ? 'Not Assigned Yet' : $user->user_block->name,
+            'user_ward' =>  $user->user_ward == null ? 'Not Assigned Yet' : $user->user_ward->name,
+            'user_department' =>  $user->user_department == null ? 'Not Assigned Yet' : $user->user_department->name,
             'departments' => Department::pluck('name','id'),
             'blocks' => Block::pluck('name','id'),
             'wards' => Ward::pluck('name','id'),

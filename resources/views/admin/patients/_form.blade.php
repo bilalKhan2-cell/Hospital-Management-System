@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-2">
         <div class="form-group">
             {!! Form::label('Age: ', '') !!}
             {!! Form::number('age', $patient == null ? '' : $patient->age, [
@@ -39,10 +39,8 @@
             @enderror
         </div>
     </div>
-</div>
 
-<div class="row mt-2">
-    <div class="col-sm-4">
+    <div class="col-sm-2">
         <div class="form-group">
             {!! Form::label('Select Gender', '') !!}
             {!! Form::select('gender', ['Male' => 'Male', 'Female' => 'Female'], $patient == null ? '' : $patient->gender, [
@@ -51,8 +49,11 @@
             ]) !!}
         </div>
     </div>
+</div>
 
-    <div class="col-sm-4">
+<div class="row mt-2">
+
+    <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('CNIC', '') !!}
             {!! Form::text('cnic', $patient == null ? '' : $patient->cnic, [
@@ -65,7 +66,7 @@
         </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('Contact Info: ', '') !!}
             {!! Form::text('contact_info', $patient == null ? '' : $patient->contact_info, [
@@ -75,6 +76,16 @@
             @error('contact_info')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="form-group">
+            {!! Form::label('Select Doctor', '') !!}
+            {!! Form::select('doctor_id', $doctors, $patient == null ? '' : $patient->doctor_id, [
+                'class' => 'form-control',
+                'id' => 'slctDoctor',
+            ]) !!}
         </div>
     </div>
 

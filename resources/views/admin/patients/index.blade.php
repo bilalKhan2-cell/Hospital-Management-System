@@ -28,6 +28,7 @@
                         <th>Gender</th>
                         <th>CNIC</th>
                         <th>Contact Info</th>
+                        <th>Consulted By</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,6 +74,13 @@
                 {
                     data: 'contact_info',
                     name: 'contact_info'
+                },
+                {
+                    data:'doctor',
+                    name:'doctor',
+                    render:function(data){
+                        return data.name;
+                    }
                 },
                 {
                     data: 'action',

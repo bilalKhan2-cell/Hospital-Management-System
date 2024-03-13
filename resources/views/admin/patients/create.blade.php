@@ -12,6 +12,7 @@
     @include('admin.patients._form',[
         'method' => "POST",
         'patient' => null,
-        'route' => 'patients.store'
+        'route' => 'patients.store',
+        'doctors' => $doctors
     ])
 @endsection

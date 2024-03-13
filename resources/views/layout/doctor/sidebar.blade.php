@@ -53,8 +53,6 @@
                     <li><a href="{{ route('departments.index') }}"><span class="title">Manage Departments</span></a>
                     </li>
                     <li><a href="{{ route('wards.index') }}"><span class="title">Manage Wards</span></a></li>
-                    <li><a href="{{ route('medicines.index') }}"><span class="title">Manage Medicines Items</span></a>
-                    </li>
                 </ul>
             </li>
 

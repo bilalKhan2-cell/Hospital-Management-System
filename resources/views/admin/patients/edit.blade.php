@@ -12,6 +12,7 @@
     @include('admin.patients._form', [
         'method' => 'PUT',
         'patient' => $patient,
+        'doctors' => $doctors,
         'route' => ['patients.update',$patient->id],
     ])
 @endsection
