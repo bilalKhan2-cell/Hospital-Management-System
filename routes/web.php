@@ -7,6 +7,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\MedicinesController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\StockRequestController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\UserController;
 
@@ -22,6 +23,9 @@ Route::resource('designations', DesignationController::class);
 Route::resource('patients', PatientController::class);
 Route::resource('doctors', DoctorController::class);
 Route::resource('medicines',MedicinesController::class);
+
+Route::get('/stock-request',[StockRequestController::class,'index'])->name('stock.requests');
+Route::get('/stock-request/create',[StockRequestController::class,'create'])->name('stock_requests.create');
 
 Route::get('/users/manage_assignemnt', [UserController::class, 'show_modal'])->name('users.manage_assignment');
 Route::post('/users/assign_role', [UserController::class, 'assign_role'])->name('users.assign_user_role');

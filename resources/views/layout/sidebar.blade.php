@@ -55,6 +55,8 @@
                     <li><a href="{{ route('wards.index') }}"><span class="title">Manage Wards</span></a></li>
                     <li><a href="{{ route('medicines.index') }}"><span class="title">Manage Medicines Items</span></a>
                     </li>
+                    <li><a href="{{route('stock_requests.create')}}"><span class="title">Create Stock Request</span></a></li>
+                    <li><a href="{{route('stock.requests')}}"><span class="title">Manage Stock Requests</span></a></li>
                 </ul>
             </li>
 
