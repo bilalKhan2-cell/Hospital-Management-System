@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Designation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class DesignationController extends Controller
@@ -45,7 +46,7 @@ class DesignationController extends Controller
         $designation = Designation::create([
             'name' => $request->name,
             'comments' => $request->comments,
-            'user_id' => 1
+            'user_id' => Auth::user()->id
         ]);
 
         if ($designation) {
@@ -70,6 +71,7 @@ class DesignationController extends Controller
         $designation = Designation::where('id', $designation->id)->update([
             'name' => $request->name,
             'comments' => $request->comments,
+            'user_id' => Auth::user()->id
         ]);
 
         if ($designation) {

@@ -22,7 +22,7 @@
 <body class="menubar-hoverable header-fixed ">
 
     <section class="section-account">
-        <div class="img-backdrop" style="background-image: url('{{ asset('img/img16.jpg') }}')"></div>
+        <div class="img-backdrop" style="background-image: url('{{asset('img/bg1.jpg')}}')"></div>
         <div class="spacer"></div>
         <div class="card contain-sm style-transparent">
             <div class="card-body">

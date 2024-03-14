@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Models\{
     Department,
@@ -102,5 +103,28 @@ class UserController extends Controller
         $user->update($request->only(['ward_id','block_id','department_id']));
 
         return redirect()->back()->with('success','User Assignment Process Completed Successfully..');
+    }
+
+    public function login(Request $request){
+        $request->validate([
+            'email' => "required|email",
+            'password' => 'required'
+        ],[
+            'email.required' => 'Email Address is Required',
+            'email.email' => 'Invalid Email Address is Required',
+            'password.required' => "Password is Required"
+        ]);
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+            return redirect()->route('dashboard');
+        }
+
+        else {
+            return redirect()->back()->with('error','Invalid Username or Password');
+        }
+    }
+
+    public function profile(){
+        return true;
     }
 }

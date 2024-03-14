@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Block;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class BlockController extends Controller
@@ -31,12 +32,12 @@ class BlockController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(Block::$rules,Block::$messages);
+        $request->validate(Block::$rules, Block::$messages);
 
         Block::create([
             'name' => $request->name,
             'description' => $request->description,
-            'user_id' => 1
+            'user_id' => Auth::user()->id
         ]);
 
         return redirect()->route('blocks.index')->with('success', 'Block Registered Successfully..');
@@ -53,11 +54,14 @@ class BlockController extends Controller
     public function update(Request $request, Block $block)
     {
         $update_block = Block::where('id', $block->id)
-            ->update(['name' => $request->name,
-        'description' => $request->description]);
+            ->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'user_id' => Auth::user()->id
+            ]);
 
-        if($update_block){
-            return redirect()->route('blocks.index')->with('success',"Block's Details Updated Successfully..");
+        if ($update_block) {
+            return redirect()->route('blocks.index')->with('success', "Block's Details Updated Successfully..");
         }
     }
 }

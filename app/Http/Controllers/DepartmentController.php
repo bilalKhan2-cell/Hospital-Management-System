@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Block;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class DepartmentController extends Controller
@@ -51,7 +52,7 @@ class DepartmentController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'block_id' => $request->block,
-            'user_id' => 1
+            'user_id' => Auth::user()->id
         ]);
 
         return redirect()->route('departments.index')->with('success', 'Department Registered Successfully..');
@@ -75,19 +76,13 @@ class DepartmentController extends Controller
             ->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'block_id' => $request->block
+                'block_id' => $request->block,
+                'user_id' => Auth::user()->id
             ]);
 
         if ($updated_block) {
             return redirect()->route('departments.index')->with('success', 'Department Detail Updated Successfully..');
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Department $department)
-    {
-        //
-    }
+    
 }

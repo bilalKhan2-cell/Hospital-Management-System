@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class WardController extends Controller
@@ -52,7 +53,7 @@ class WardController extends Controller
         Ward::create([
             'name' => $request->name,
             'description' => $request->description,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
             'department_id' => $request->department
         ]);
 
@@ -78,7 +79,7 @@ class WardController extends Controller
             ->update([
                 'name' => $request->name,
                 'description' => $request->description,
-                'user_id' => 1,
+                'user_id' => Auth::user()->id,
                 'department_id' => $request->department
             ]);
 

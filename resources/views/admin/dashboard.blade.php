@@ -8,6 +8,6 @@
 
 @section('content')
     <div class="container">
-        <h3 class="text-secondary">Welcome Admin!</h3>
+        <span class="text-success h3">Welcome, {{Auth::user()->name}}!</span>
     </div>
 @endsection

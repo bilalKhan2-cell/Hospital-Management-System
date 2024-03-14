@@ -12,7 +12,6 @@ class StockRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            
         }
 
         return view('admin.stocks.index');
@@ -20,12 +19,13 @@ class StockRequestController extends Controller
 
     public function create()
     {
-        return view('admin.stocks.create',[
-            'medicines' => Medicines::pluck('name','id')
-        ]);   
+        return view('admin.stocks.create', [
+            'medicines' => Medicines::pluck('name', 'id')
+        ]);
     }
 
     public function store(Request $request)
     {
+        return true;
     }
 }

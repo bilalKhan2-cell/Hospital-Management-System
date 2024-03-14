@@ -24,8 +24,8 @@
                         <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
                             <img src="{{ asset('img/avatar11.jpg?1403934956') }}" alt="" />
                             <span class="profile-info">
-                                Daniel Johnson
-                                <small>Administrator</small>
+                                {!! Auth::user()->name !!}
+                                <small>{!! Auth::user()->user_designation->name !!}</small>
                             </span>
                         </a>
                         <ul class="dropdown-menu animation-dock">

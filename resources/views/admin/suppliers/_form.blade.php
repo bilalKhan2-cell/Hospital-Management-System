@@ -3,7 +3,6 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
-            {!! Form::hidden('user_id',1) !!}
             {!! Form::label('Supplier Name: ', '') !!}
             {!! Form::text('name', $supplier == null ? '' : $supplier->name, [
                 'id' => 'txtSupplierName',

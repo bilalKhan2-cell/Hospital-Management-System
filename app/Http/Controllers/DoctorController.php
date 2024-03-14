@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class DoctorController extends Controller
@@ -59,6 +60,7 @@ class DoctorController extends Controller
     public function update(Request $request, string $id)
     {
         Doctor::where('id', $id)->update($request->only(['name', 'gender', 'dob', 'contact_info', 'address', 'specialization', 'email', 'cnic', 'department_id', 'joining_date', 'status']));
+        Doctor::where('id',$id)->update('user_id',Auth::user()->id);
         return redirect()->route('doctors.index')->with('success', 'Doctor Data Updated Successfully..');
     }
 }

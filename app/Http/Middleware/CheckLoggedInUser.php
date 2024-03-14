@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckLoggedInUser
@@ -15,6 +16,10 @@ class CheckLoggedInUser
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (Auth::user() == null) {
+            return redirect()->route('user.login');
+        }
+
         return $next($request);
     }
 }

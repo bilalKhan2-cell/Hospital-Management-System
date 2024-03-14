@@ -13,25 +13,34 @@ use App\Http\Controllers\WardController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+    return view('login');
+})->name('user.login');
 
-Route::resource('blocks', BlockController::class);
-Route::resource('departments', DepartmentController::class);
-Route::resource('wards', WardController::class);
-Route::resource('users', UserController::class);
-Route::resource('designations', DesignationController::class);
-Route::resource('patients', PatientController::class);
-Route::resource('doctors', DoctorController::class);
-Route::resource('medicines',MedicinesController::class);
-Route::resource('suppliers',SupplierController::class);
+Route::post('/user/login',[UserController::class,'login'])->name('user.check');
 
-Route::get('/stock-request',[StockRequestController::class,'index'])->name('stock.requests');
-Route::get('/stock-request/create',[StockRequestController::class,'create'])->name('stock_requests.create');
+Route::middleware(['user.login'])->group(function () {
 
-Route::get('/users/manage_assignemnt', [UserController::class, 'show_modal'])->name('users.manage_assignment');
-Route::post('/users/assign_role', [UserController::class, 'assign_role'])->name('users.assign_user_role');
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
 
-Route::get('/profile', function () {
-    return view('admin.profile');
-})->name('users.profile');
+    Route::resource('blocks', BlockController::class);
+    Route::resource('departments', DepartmentController::class);
+    Route::resource('wards', WardController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('designations', DesignationController::class);
+    Route::resource('patients', PatientController::class);
+    Route::resource('doctors', DoctorController::class);
+    Route::resource('medicines', MedicinesController::class);
+    Route::resource('suppliers', SupplierController::class);
+
+    Route::get('/stock-request', [StockRequestController::class, 'index'])->name('stock.requests');
+    Route::get('/stock-request/create', [StockRequestController::class, 'create'])->name('stock_requests.create');
+
+    Route::get('/users/manage_assignemnt', [UserController::class, 'show_modal'])->name('users.manage_assignment');
+    Route::post('/users/assign_role', [UserController::class, 'assign_role'])->name('users.assign_user_role');
+
+    Route::get('/profile', function () {
+        return view('admin.profile');
+    })->name('users.profile');
+});

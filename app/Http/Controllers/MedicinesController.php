@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Medicines;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class MedicinesController extends Controller
@@ -38,13 +39,23 @@ class MedicinesController extends Controller
     public function store(Request $request)
     {
         $request->validate(Medicines::$rules, Medicines::$messages);
-        Medicines::create($request->only('name', 'strength', 'description', 'unit_price', 'dosage_form'));
+
+        $medicine_data = [
+            'name' => $request->name,
+            'strength' => $request->strength,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id,
+            'unit_price' => $request->unit_price,
+            'dosage_form' => $request->dosage_form
+        ];
+
+        Medicines::create($medicine_data);
         return redirect()->route('medicines.index')->with('success', 'Medicine Added Successfully..');
     }
 
     public function edit(string $id)
     {
-        return view('admin.medicines.edit',[
+        return view('admin.medicines.edit', [
             'medicine' => Medicines::find($id),
             'dosages' => (Medicines::$dosage_forms)
         ]);
@@ -55,7 +66,16 @@ class MedicinesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Medicines::where('id',$id)->update($request->only('name', 'strength', 'description', 'unit_price', 'dosage_form'));
+        $medicine_data = [
+            'name' => $request->name,
+            'strength' => $request->strength,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id,
+            'unit_price' => $request->unit_price,
+            'dosage_form' => $request->dosage_form
+        ];
+
+        Medicines::where('id', $id)->update($medicine_data);
         return redirect()->route('medicines.index')->with('success', 'Medicine Detail Updated Successfully..');
     }
 
