@@ -15,14 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('medicine_id')->unsigned();
             $table->mediumInteger('quantity')->unsigned();
-            $table->tinyInteger('is_approved')->unsigned();
             $table->mediumInteger('approved_quantity')->unsigned();
-            $table->bigInteger('initiated_by')->unsigned();
-            $table->string('notes')->nullable();
-            $table->bigInteger('approved_by')->unsigned();
-            $table->foreign('initiated_by')->references('id')->on('users');
-            $table->foreign('approved_by')->references('id')->on('users');
             $table->foreign('medicine_id')->references('id')->on('items');
+            $table->bigInteger('stock_requests_master_id')->unsigned();
             $table->timestamps();
         });
     }

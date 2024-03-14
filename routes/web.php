@@ -8,6 +8,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\MedicinesController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StockRequestController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\UserController;
 
@@ -23,6 +24,7 @@ Route::resource('designations', DesignationController::class);
 Route::resource('patients', PatientController::class);
 Route::resource('doctors', DoctorController::class);
 Route::resource('medicines',MedicinesController::class);
+Route::resource('suppliers',SupplierController::class);
 
 Route::get('/stock-request',[StockRequestController::class,'index'])->name('stock.requests');
 Route::get('/stock-request/create',[StockRequestController::class,'create'])->name('stock_requests.create');

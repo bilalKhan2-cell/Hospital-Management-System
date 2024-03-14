@@ -33,10 +33,22 @@
             </div>
         </div>
     </div>
+    <br>
+    <table class="table table-hover table-striped small" id="tblMedicinesRequests">
+        <thead>
+            <tr>
+                <th>Medicine Name</th>
+                <th>Requested Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 @endsection
 
 @push('script')
     <script>
+        var total_count = 0;
         function AddMedicine(){
 
         }

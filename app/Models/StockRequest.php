@@ -13,7 +13,7 @@ class StockRequest extends Model
 
     protected $table = 'stock_requests';
 
-    protected $fillable = ['initiated_by','approved_by','quantity','approved_quantity','medicine_id'];
+    protected $fillable = ['initiated_by','is_processed','approved_by','quantity','approved_quantity','medicine_id'];
 
     public function initator(){
         return $this->belongsTo(User::class,'user_id');
