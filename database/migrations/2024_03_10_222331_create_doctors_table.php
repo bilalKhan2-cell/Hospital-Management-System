@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('address');
             $table->string('specialization');
             $table->string('email')->unique();
+            $table->string('password')->nullable();
             $table->string('cnic')->unique();
             $table->bigInteger('department_id')->unsigned();
             $table->date('joining_date');
