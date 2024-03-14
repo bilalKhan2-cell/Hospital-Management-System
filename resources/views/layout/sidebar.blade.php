@@ -16,7 +16,7 @@
         <ul id="main-menu" class="gui-controls">
 
             <li>
-                <a href="../../html/dashboards/dashboard.html">
+                <a href="{{route('dashboard')}}">
                     <div class="gui-icon"><i class="md md-home"></i></div>
                     <span class="title">Dashboard</span>
                 </a>
