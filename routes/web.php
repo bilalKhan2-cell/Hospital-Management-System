@@ -43,4 +43,6 @@ Route::middleware(['user.login'])->group(function () {
     Route::get('/profile', function () {
         return view('admin.profile');
     })->name('users.profile');
+
+    Route::get('/user/logout',[UserController::class,'logout'])->name('user.logout');
 });

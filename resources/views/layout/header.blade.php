@@ -31,7 +31,7 @@
                         <ul class="dropdown-menu animation-dock">
                             <li><a href="{{ route('users.profile') }}"><i
                                         class="fa fa-fw fa-user text-primary"></i>Profile</a></li>
-                            <li><a href="../../html/pages/login.html"><i class="fa fa-fw fa-power-off text-danger"></i>
+                            <li><a href="{{route('user.logout')}}"><i class="fa fa-fw fa-power-off text-danger"></i>
                                     Logout</a></li>
                         </ul>
                     </li>

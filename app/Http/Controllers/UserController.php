@@ -124,7 +124,8 @@ class UserController extends Controller
         }
     }
 
-    public function profile(){
-        return true;
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('user.login');
     }
 }
