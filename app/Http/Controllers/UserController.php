@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Mail\UserRegistrationMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 use App\Models\{
     Department,
     Block,
     Ward,
     Designation
 };
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -34,7 +37,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn("action", function (User $user) {
                     $btn = '<a href="' . route('users.edit', $user->id) . '" class="edit btn btn-info btn-sm"><i class="md md-edit"></i></a>';
-                    $btn .= "&nbsp; &nbsp;<button data-target='#exampleModal' data-toggle='modal' id='".$user->id."' onclick='ShowModal(" . $user->id . ")' class='btn btn-primary btn-sm'><i class='md md-launch'></i></button>";
+                    $btn .= "&nbsp; &nbsp;<button data-target='#exampleModal' data-toggle='modal' id='" . $user->id . "' onclick='ShowModal(" . $user->id . ")' class='btn btn-primary btn-sm'><i class='md md-launch'></i></button>";
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -53,14 +56,23 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $user = User::create($request->only(['name','email','cnic','contact_info','address','designation_id','status']));
+        $user_data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'contact_info' => $request->contact_info,
+            'cnic' => $request->cnic,
+            'address' => $request->address,
+            'designation_id' => $request->designation_id,
+            'status' => 1
+        ];
+        
+        $user = User::create($user_data);
+        $password = bcrypt(Str::random(8));
+        $emailContent = view('email.UserRegistration', ['password' => $password, 'user' => $user])->render();
+        Mail::to($user->email)->send(new UserRegistrationMail($emailContent));
         if ($user) {
             return redirect()->route('users.index')->with('success', 'User Registered Successfully..');
         }
-    }
-
-    public function assign_designation()
-    {
     }
 
     public function edit(User $user)
@@ -78,13 +90,13 @@ class UserController extends Controller
         $user = User::with('user_designation', 'user_ward', 'user_department', 'user_block')->find($user_id);
 
         $modal_content = view('admin.users.manage_assignments', [
-            'user_designation' => $user->user_designation == null ? 'Not Assigned Yet' : $user->user_designation->name,
-            'user_block' => $user->user_block == null ? 'Not Assigned Yet' : $user->user_block->name,
-            'user_ward' =>  $user->user_ward == null ? 'Not Assigned Yet' : $user->user_ward->name,
-            'user_department' =>  $user->user_department == null ? 'Not Assigned Yet' : $user->user_department->name,
-            'departments' => Department::pluck('name','id'),
-            'blocks' => Block::pluck('name','id'),
-            'wards' => Ward::pluck('name','id'),
+            'user_designation' => $user->user_designation == null ? '---' : $user->user_designation->name,
+            'user_block' => $user->user_block == null ? '---' : $user->user_block->name,
+            'user_ward' =>  $user->user_ward == null ? '---' : $user->user_ward->name,
+            'user_department' =>  $user->user_department == null ? '---' : $user->user_department->name,
+            'departments' => Department::pluck('name', 'id'),
+            'blocks' => Block::pluck('name', 'id'),
+            'wards' => Ward::pluck('name', 'id'),
             'userID' => $user_id
         ])->render();
 
@@ -100,31 +112,31 @@ class UserController extends Controller
     public function assign_role(Request $request)
     {
         $user = User::find($request->user_id);
-        $user->update($request->only(['ward_id','block_id','department_id']));
+        $user->update($request->only(['ward_id', 'block_id', 'department_id']));
 
-        return redirect()->back()->with('success','User Assignment Process Completed Successfully..');
+        return redirect()->back()->with('success', 'User Assignment Process Completed Successfully..');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $request->validate([
             'email' => "required|email",
             'password' => 'required'
-        ],[
+        ], [
             'email.required' => 'Email Address is Required',
             'email.email' => 'Invalid Email Address is Required',
             'password.required' => "Password is Required"
         ]);
 
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('dashboard');
-        }
-
-        else {
-            return redirect()->back()->with('error','Invalid Username or Password');
+        } else {
+            return redirect()->back()->with('error', 'Invalid Username or Password');
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('user.login');
     }

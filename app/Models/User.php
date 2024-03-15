@@ -34,7 +34,8 @@ class User extends Authenticatable
         'address',
         'cnic',
         'contact_info',
-        'designation_id'
+        'designation_id',
+        'status'
     ];
 
     /**
