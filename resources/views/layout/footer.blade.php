@@ -10,4 +10,5 @@
 <script src="{{ asset('js/core/source/AppNavSearch.js') }}"></script>
 <script src="{{ asset('js/core/source/AppVendor.js') }}"></script>
 <script src="{{ asset('js/core/demo/Demo.js') }}"></script>
+<script src="{{ asset('js/libs/select2/select2.min.js') }}"></script>
 <script src="{{ asset('js/libs/DataTables/jquery.dataTables.min.js') }}"></script>

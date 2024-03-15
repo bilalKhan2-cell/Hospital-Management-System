@@ -17,3 +17,9 @@
         'specializations' => $specializations
     ])
 @endsection
+
+@push('script')
+<script>
+    $("#slctDoctorAccountStatus").select2();
+    $("#slctDoctorDepartment").select2();
+</script>

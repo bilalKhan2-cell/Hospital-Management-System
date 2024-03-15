@@ -13,6 +13,12 @@
         'method' => 'PUT',
         'patient' => $patient,
         'doctors' => $doctors,
-        'route' => ['patients.update',$patient->id],
+        'route' => ['patients.update', $patient->id],
     ])
 @endsection
+
+@push('script')
+    <script>
+        $("#slctDoctor").select2();
+    </script>
+@endpush

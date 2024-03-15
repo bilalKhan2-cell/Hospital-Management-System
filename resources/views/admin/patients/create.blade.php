@@ -16,3 +16,9 @@
         'doctors' => $doctors
     ])
 @endsection
+
+@push('script')
+    <script>
+        $("#slctDoctor").select2();
+    </script>
+@endpush

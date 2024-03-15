@@ -9,6 +9,9 @@
                 'class' => 'form-control',
             ]) !!}
         </div>
+        @error('name')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
     </div>
 
     <div class="col-sm-4">
@@ -18,6 +21,9 @@
                 'id' => 'txtSupplierEmailAddress',
                 'class' => 'form-control',
             ]) !!}
+            @error('email')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 
@@ -28,6 +34,9 @@
                 'id' => 'txtSupplierContactInfo',
                 'class' => 'form-control',
             ]) !!}
+            @error('contact_info')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 </div>
@@ -40,6 +49,9 @@
                 'id' => 'txtSupplierAddress',
                 'class' => 'form-control',
             ]) !!}
+            @error('address')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 

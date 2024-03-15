@@ -12,37 +12,36 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WardController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('login');
-})->name('user.login');
-
-Route::post('/user/login',[UserController::class,'login'])->name('user.check');
+Route::get('/',[UserController::class,'show_user_login_page'])->name('users.login');
+Route::post('/user/login', [UserController::class, 'login'])->name('user.check');
 
 Route::middleware(['user.login'])->group(function () {
+    
+    Route::get('/dashboard', [UserController::class, 'show_user_dashboard'])->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
-    Route::resource('blocks', BlockController::class);
-    Route::resource('departments', DepartmentController::class);
-    Route::resource('wards', WardController::class);
-    Route::resource('users', UserController::class);
-    Route::resource('designations', DesignationController::class);
-    Route::resource('patients', PatientController::class);
-    Route::resource('doctors', DoctorController::class);
-    Route::resource('medicines', MedicinesController::class);
-    Route::resource('suppliers', SupplierController::class);
+    Route::resources([
+        'blocks' => BlockController::class,
+        'departments' => DepartmentController::class,
+        'wards' => WardController::class,
+        'users' => UserController::class,
+        'designations' => DesignationController::class,
+        'patients' => PatientController::class,
+        'doctors' => DoctorController::class,
+        'medicines' => MedicinesController::class,
+        'suppliers' => SupplierController::class,
+    ]);
 
     Route::get('/stock-request', [StockRequestController::class, 'index'])->name('stock.requests');
     Route::get('/stock-request/create', [StockRequestController::class, 'create'])->name('stock_requests.create');
-
     Route::get('/users/manage_assignemnt', [UserController::class, 'show_modal'])->name('users.manage_assignment');
+    Route::get('/profile', [UserController::class, 'show_user_profile'])->name('users.profile');;
+    Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
+    Route::get('/stock',[StockRequestController::class,'index'])->name('stocks.index');
+    Route::get('/stock/delete_item',[StockRequestController::class,'delete_item'])->name('stocks.delete_item');
+    Route::get('/stock/show',[StockRequestController::class,'show'])->name('stocks.show');
+    Route::get('/stock/unapproved',[StockRequestController::class,'show_unapproved'])->name('stocks.show_unapproved');
+
     Route::post('/users/assign_role', [UserController::class, 'assign_role'])->name('users.assign_user_role');
-
-    Route::get('/profile', function () {
-        return view('admin.profile');
-    })->name('users.profile');
-
-    Route::get('/user/logout',[UserController::class,'logout'])->name('user.logout');
+    Route::post('/stock/add_item',[StockRequestController::class,'add_item'])->name('stocks.add_item');
+    Route::post('/stock/submit_request',[StockRequestController::class,'store'])->name('stocks.submit_request');
 });

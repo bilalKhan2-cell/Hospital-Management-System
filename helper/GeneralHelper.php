@@ -19,6 +19,13 @@ function ShowAlert($class, $content, $heading)
             </div>';
 }
 
+function ShowUnCardAlert($class, $content)
+{
+    return '<div class="alert alert-' . $class . '">
+        <span>' . $content . '</span>
+    </div>';
+}
+
 function GridView($class, $headers = [], $data = [])
 {
     $table_strng = "<table class='" . $class . "'>";

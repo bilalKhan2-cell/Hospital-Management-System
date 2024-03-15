@@ -11,3 +11,9 @@
 @section('content')
     @include('admin.departments._form', ['department' => null, 'block' => $blocks])
 @endsection
+
+@push('script')
+    <script>
+        $("#slctBlock").select2();
+    </script>
+@endpush

@@ -15,6 +15,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-default/font-awesome.min.css?1422529194') }}" />
     <link type="text/css" rel="stylesheet"
         href="{{ asset('css/theme-default/material-design-iconic-font.min.css?1421434286') }}" />
+    <link rel="stylesheet" href="{{ asset('css/theme-default/libs/select2/select2.css?1424887856') }}" />
     <link rel="stylesheet" href="{{ asset('css/theme-default/libs/DataTables/jquery.dataTables.css?1423553989') }}">
 
     @stack('style')

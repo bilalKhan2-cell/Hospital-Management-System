@@ -65,7 +65,7 @@ class UserController extends Controller
             'designation_id' => $request->designation_id,
             'status' => 1
         ];
-        
+
         $user = User::create($user_data);
         $password = bcrypt(Str::random(8));
         $emailContent = view('email.UserRegistration', ['password' => $password, 'user' => $user])->render();
@@ -117,6 +117,15 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User Assignment Process Completed Successfully..');
     }
 
+    public function show_user_login_page()
+    {
+        if (Auth::user() == null) {
+            return view('login');
+        } else {
+            return redirect()->route('dashboard');
+        }
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -139,5 +148,15 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('user.login');
+    }
+
+    public function show_user_profile()
+    {
+        return view('admin.profile');
+    }
+
+    public function show_user_dashboard()
+    {
+        return view('admin.dashboard');
     }
 }

@@ -119,7 +119,7 @@
                 {!! Form::label('Status', '') !!}
                 {!! Form::select('status', ['1' => 'Active', '0' => 'In-Active'], $doctor == null ? '' : $doctor->status, [
                     'class' => 'form-control',
-                    'id' => 'slctDoctorDepartment',
+                    'id' => 'slctDoctorAccountStatus',
                 ]) !!}
             </div>
         </div>

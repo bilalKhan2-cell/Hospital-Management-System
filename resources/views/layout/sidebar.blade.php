@@ -58,6 +58,7 @@
                     <li><a href="{{route('stock_requests.create')}}"><span class="title">Create Stock Request</span></a></li>
                     <li><a href="{{route('stock.requests')}}"><span class="title">Manage Stock Requests</span></a></li>
                     <li><a href="{{route('suppliers.index')}}"><span class="title">Manage Suppliers</span></a></li>
+                    <li><a href="{{route('stocks.show_unapproved')}}"><span class="title">Manage Pending Stock Requests</span></a></li>
                 </ul>
             </li>
 
