@@ -9,6 +9,10 @@
 @endsection
 
 @section('content')
+    @if (session()->has('success'))
+        {!! ShowUnCardAlert('success', session()->get('success')) !!}
+    @endif
+
     <div class="row">
         <div class="col-sm-12">
             <table id="tblUnApprovedStockRequests" class="table small table-hover table-striped table-bordered">

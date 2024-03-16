@@ -8,16 +8,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\StockRequest;
+use App\Models\Supplier;
 
 class StockRequestController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(StockRequestsMaster::where('initiated_by', Auth::user()->id)->where('is_approved', 0)->get())
+            return DataTables::of(StockRequestsMaster::with('approver')->where('initiated_by', Auth::user()->id)->get())
                 ->addIndexColumn()
-                ->addColumn('action', function () {
-                    $buttons = "<a href='" . route('stocks.show') . "' class='btn btn-sm small btn-primary'>View</a>";
+                ->addColumn('action', function (StockRequestsMaster $stockRequestsMaster) {
+                    $buttons = "<a href='" . route('stocks.show', $stockRequestsMaster->id) . "' class='btn btn-sm small btn-primary'>View</a>";
                     return $buttons;
                 })
                 ->rawColumns(['action'])
@@ -37,10 +38,13 @@ class StockRequestController extends Controller
         ]);
     }
 
-    public function show()
+    public function show($id)
     {
+        $supplier_id = StockRequestsMaster::with('supplier')->where('id',$id)->first(['supplier_ID']);
         return view('admin.stocks.show', [
-            'medicines' => StockRequest::with('medicine')->where('initiated_by', Auth::user()->id)->get()
+            'supplier' => Supplier::find($supplier_id),
+            'notes' => StockRequestsMaster::find($id)->notes,
+            'medicines' => StockRequest::with('medicine')->where('stock_requests_master_id', $id)->where('initiated_by', Auth::user()->id)->get()
         ]);
     }
 
@@ -104,13 +108,38 @@ class StockRequestController extends Controller
         if ($request->ajax()) {
             return DataTables::of(StockRequestsMaster::with('initiator')->where('is_approved', 0)->get())
                 ->addIndexColumn()
-                ->addColumn('action', function () {
-                    return 'Click Here';
+                ->addColumn('action', function (StockRequestsMaster $stockRequestsMaster) {
+                    return '<a class="btn btn-sm btn-primary" href="' . route('stocks.process_unapproved', ['id' => $stockRequestsMaster->id]) . '"><i class="md md-done"></i></a>';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
         return view('admin.stocks.show_unapproved');
+    }
+
+    public function process_unapproved($stock_request_master_id)
+    {
+        if (!StockRequestsMaster::where('id', $stock_request_master_id)->where('is_approved', 0)) {
+            return "This Request Is Already Approved";
+        }
+
+        return view('admin.stocks.edit', [
+            'suppliers' => Supplier::pluck('name', 'id'),
+            'stock_master' => $stock_request_master_id,
+            'data' => StockRequest::with('medicine')->where('stock_requests_master_id', $stock_request_master_id)->get()
+        ]);
+    }
+
+    public function approve_medicine(Request $request)
+    {
+        StockRequest::find($request->request_id)->update(['approved_quantity' => $request->approving_quantity]);
+        return 1;
+    }
+
+    public function approve_request(Request $request)
+    {
+        StockRequestsMaster::where('id', $request->id)->update(['approved_by' => Auth::user()->id, 'is_approved' => 1, 'supplier_id' => $request->supplier, 'notes' => $request->notes]);
+        return redirect()->route('stocks.show_unapproved')->with('success', 'Stock Request Processed Successfully..');
     }
 }

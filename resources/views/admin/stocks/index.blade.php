@@ -21,6 +21,7 @@
                     <tr>
                         <th>Request ID</th>
                         <th>Registration At</th>
+                        <th>Approved and Processed By</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -49,8 +50,21 @@
                     name: 'created_at',
                 },
                 {
-                    data: 'status',
-                    name: 'status',
+                    data: 'approver',
+                    name: 'approver',
+                    render: function(result) {
+                        if(result!=null){
+                            return "USER-" + result.id + " (" + result.name + ")";
+                        }
+
+                        else {
+                            return "-----";
+                        }
+                    }
+                },
+                {
+                    data: 'is_approved',
+                    name: 'is_approved',
                     render: function(result) {
                         if (result == 1) {
                             return '<span class="text-success">Processed</span>';
