@@ -13,7 +13,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Supplier', '') !!}
-                <span>{{ $supplier[0]->name }}</span>
+                <span>{{ count($supplier) > 0 ? $supplier[0]->name : '--' }}</span>
             </div>
         </div>
         <div class="col-sm-12">
@@ -28,8 +28,10 @@
                     <tr>
                         <th>Medicine Name</th>
                         <th>Requested Quantity</th>
-                        <th>Approved Quantity</th>
-                        <th>Remaining Quantity</th>
+                        @if ($medicines[0]->approved_quantity != null)
+                            <th>Approved Quantity</th>
+                            <th>Remaining Quantity</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -37,9 +39,12 @@
                         <tr>
                             <td>{{ $value->medicine->name }}</td>
                             <td>QTY - {{ $value->quantity }}</td>
-                            <td>QTY - {{ $value->approved_quantity }}</td>
-                            <td>QTY - {{ $value->quantity == $value->approved_quantity ? '0' : $value->quantity - $value->approved_quantity }}
-                            </td>
+                            @if ($value->approved_quantity != null)
+                                <td>QTY - {{ $value->approved_quantity }}</td>
+                                <td>QTY -
+                                    {{ $value->quantity == $value->approved_quantity ? '0' : $value->quantity - $value->approved_quantity }}
+                                </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>

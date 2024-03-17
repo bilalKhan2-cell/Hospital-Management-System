@@ -15,7 +15,7 @@ class StockRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(StockRequestsMaster::with('approver')->where('initiated_by', Auth::user()->id)->get())
+            return DataTables::of(StockRequestsMaster::with('approver')->where('initiated_by', Auth::user()->id)->orderBy('id','desc'))
                 ->addIndexColumn()
                 ->addColumn('action', function (StockRequestsMaster $stockRequestsMaster) {
                     $buttons = "<a href='" . route('stocks.show', $stockRequestsMaster->id) . "' class='btn btn-sm small btn-primary'>View</a>";

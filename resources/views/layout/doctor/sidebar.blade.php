@@ -15,60 +15,30 @@
 
         <ul id="main-menu" class="gui-controls">
 
-            <li>
-                <a href="../../html/dashboards/dashboard.html">
+            <li class="gui-folder">
+                <a href="{{route('doctors.dashboard')}}">
                     <div class="gui-icon"><i class="md md-home"></i></div>
                     <span class="title">Dashboard</span>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('users.index') }}">
+            <li class="gui-folder">
+                <a href="{{ route('doctors.show_pending_appointments') }}">
                     <div class="gui-icon">
                         <i class="md md-person"></i>
                     </div>
-                    <span class="title">Users</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('doctors.index') }}">
-                    <div class="gui-icon">
-                        <i class="md md-person"></i>
-                    </div>
-                    <span class="title">Doctors</span>
+                    <span class="title">Appoinments</span>
                 </a>
             </li>
 
             <li class="gui-folder">
-                <a>
-                    <div class="gui-icon"><i class="md md-settings"></i></div>
-                    <span class="title">Settings</span>
-                </a>
-
-                <ul>
-                    <li><a href="{{ route('designations.index') }}"><span class="title">Manage Designations</span></a>
-                    </li>
-                    <li><a href="{{ route('blocks.index') }}"><span class="title">Manage Blocks</span></a></li>
-                    <li><a href="{{ route('departments.index') }}"><span class="title">Manage Departments</span></a>
-                    </li>
-                    <li><a href="{{ route('wards.index') }}"><span class="title">Manage Wards</span></a></li>
-                </ul>
+                <a href="{{route('doctors.show_patients')}}">
+                <div class="gui-icon">
+                    <i class="md md-person"></i>
+                </div>
+                <span class="title">Manage Patients</span>
+            </a>
             </li>
-
-            <li class="gui-folder">
-                <a>
-                    <div class="gui-icon"><i class="mdi mdi-account"></i>
-                    </div>
-                    <span class="title">Patients</span>
-                </a>
-
-                <ul>
-                    <li><a href="{{ route('patients.index') }}"><span class="title">Manage Patients</span></a></li>
-                </ul>
-            </li>
-
         </ul>
-
     </div>
 </div>

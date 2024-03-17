@@ -7,8 +7,7 @@
 @section('content')
     
     @if (session()->has('error'))
-        {!! ShowAlert('error', session()->get('error'), 'Error') !!}
-        <br><br>
+        {!! ShowUnCardAlert('danger', session()->get('error')) !!}
     @endif
     
     <span class="text-lg text-bold text-primary">HOSPITAL MANAGEMENT SYSTEM</span>
@@ -45,6 +44,6 @@
 
 @push('script')
     <script>
-        $(".card-bordered").delay(2000).fadeOut();
+        $(".alert").delay(2000).fadeOut();
     </script>
 @endpush

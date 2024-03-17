@@ -137,8 +137,10 @@ class UserController extends Controller
             'password.required' => "Password is Required"
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('dashboard');
+        }else if(Auth::guard('doctor')->attempt(['email' => $request->email, 'password' => $request->password])){
+            return redirect()->route('doctors.dashboard');
         } else {
             return redirect()->back()->with('error', 'Invalid Username or Password');
         }

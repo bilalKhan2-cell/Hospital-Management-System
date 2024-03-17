@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckLoggedInUser
+class CheckTypeDoctor
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class CheckLoggedInUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::guard('web')->user() == null && Auth::guard('doctor')->user()==null) {
-            return redirect()->route('user.login');
+        if(Auth::guard('doctor')->check()){
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->route('dashboard');
     }
 }

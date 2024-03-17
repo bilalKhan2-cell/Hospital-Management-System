@@ -1,9 +1,11 @@
 @extends('layout.doctor.main')
 
-@section('title') Appointments @endsection
+@section('title')
+    Appointments
+@endsection
 
 @section('breadcrumbs')
-    @include('layout.breadcrumbs',['title' => "Appointments"])
+    @include('layout.breadcrumbs', ['title' => 'Appointments'])
 @endsection
 
 @section('content')

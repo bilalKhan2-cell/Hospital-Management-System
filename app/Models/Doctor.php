@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\{Department, User};
 
-class Doctor extends Model
+class Doctor extends Authenticatable
 {
     use HasFactory;
 
@@ -57,7 +58,6 @@ class Doctor extends Model
         "department_id" => "required",
         "joining_date" => "required|date",
         'status' => 'required|numeric',
-        'address' => 'required'
     ];
 
     public static $messages = [
@@ -77,7 +77,6 @@ class Doctor extends Model
         "joining_date.date" => "Invalid Joining Date Format",
         "joining_date.required" => "Joining Date is Required",
         "status.numeric" => "Invalid Profile Status Provided",
-        'address.required' => "Please Enter Address"
     ];
 
     public static function getRules(array $overrides = [])

@@ -21,6 +21,9 @@ return new class extends Migration
             $table->bigInteger('doctor_id')->nullable()->unsigned();
             $table->string('gender');
             $table->tinyInteger('age')->unsigned();
+            $table->tinyInteger('is_checkup')->unsigned()->default(0);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
