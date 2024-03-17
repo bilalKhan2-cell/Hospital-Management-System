@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\PatientRecieving;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -44,11 +45,11 @@ class PatientController extends Controller
         $request->validate(Patient::$rules, Patient::$messages);
 
         $patient_data = [
-            'name' => $request->name, 
-            'fname' => $request->fname, 
-            'age' => $request->age, 
-            'gender' => $request->gender, 
-            'address' => $request->address, 
+            'name' => $request->name,
+            'fname' => $request->fname,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address,
             'contact_info' => $request->contact_info,
             'cnic' => $request->cnic,
             'user_id' => Auth::user()->id
@@ -67,17 +68,55 @@ class PatientController extends Controller
     public function update(Request $request, string $id)
     {
         $patient_data = [
-            'name' => $request->name, 
-            'fname' => $request->fname, 
-            'age' => $request->age, 
-            'gender' => $request->gender, 
-            'address' => $request->address, 
+            'name' => $request->name,
+            'fname' => $request->fname,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address,
             'contact_info' => $request->contact_info,
             'cnic' => $request->cnic,
             'user_id' => Auth::user()->id
         ];
 
-        $this->patient->where('id', $id)->update($patient_data);
+        $this->patient->find($id)->update($patient_data);
         return redirect()->route('patients.index')->with('success', 'Patient Detail\'s Updated Successfully..');
+    }
+
+    public function send_patient_admitting_request(Request $request)
+    {
+        PatientRecieving::create([
+            'patient_id' => $request->patient_id,
+            'ward_id' => $request->ward_id,
+            'notes' => $request->notes,
+            'is_admitted' => 0
+        ]);
+
+        Patient::find($request->patient_id)->update(['is_checkup' => 1]);
+
+        return redirect()->route('doctors.show_patients')->with('success', 'Patient Admtting Request Submitted Successfully');
+    }
+
+    public function show_admitting_request_patients(Request $request)
+    {
+        if ($request->ajax()) {
+            return DataTables::of(PatientRecieving::with('patient', 'patient.doctor')->where('is_admitted', 0)->get())
+                ->addIndexColumn()
+                ->addColumn('action', function (PatientRecieving $patientRecieving) {
+                    return '<a href="' . route('patient.create_admitting', $patientRecieving->id) . '" class="btn btn-sm btn-outline-info rounded-circle"><i class="md md-edit"></i></a>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.patient_recieving.index');
+    }
+
+    public function create_admitting_request($id)
+    {
+        $data = PatientRecieving::find($id);
+        return view('admin.patient_recieving.create', [
+            'patient' => Patient::find($data->patient_id),
+            'patient_recieving' => $data
+        ]);
     }
 }

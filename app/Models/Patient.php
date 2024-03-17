@@ -4,21 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{User,Doctor};
+use App\Models\{User, Doctor};
 
 class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'fname', 'age', 'gender', 'address', 'contact_info', 'cnic', 'doctor_id','user_id'];
+    protected $fillable = ['name', 'fname', 'age', 'gender', 'address', 'contact_info', 'cnic', 'doctor_id', 'user_id'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function doctor(){
-        return $this->belongsTo(Doctor::class,'doctor_id');
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
     }
 
     public static $rules = [
@@ -43,11 +44,13 @@ class Patient extends Model
         return array_merge(static::$rules, $overrides);
     }
 
-    public function setNameAttribute($value){
-        return $this->attributes['name'] = 'MR-'.ucwords($value);
+    public function setNameAttribute($value)
+    {
+        return $this->attributes['name'] = 'MR-' . ucwords($value);
     }
 
-    public function setFNameAttribute($value){
+    public function setFNameAttribute($value)
+    {
         return $this->attributes['fname'] = ucwords($value);
     }
 }

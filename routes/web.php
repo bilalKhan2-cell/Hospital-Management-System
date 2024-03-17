@@ -37,6 +37,11 @@ Route::middleware(['user.login'])->group(function () {
         Route::get('/profile', [UserController::class, 'show_user_profile'])->name('users.profile');;
         Route::get('/user/logout', [UserController::class, 'logout'])->name('user.logout');
 
+        Route::prefix('patient')->group(function(){
+            Route::get('/admitting',[PatientController::class,'show_admitting_request_patients'])->name('patients.admitting');
+            Route::get('/admitting/create/{id}',[PatientController::class,'create_admitting_request'])->name('patient.create_admitting');
+        });
+
         Route::prefix('stock')->group(function () {
             Route::get('/', [StockRequestController::class, 'index'])->name('stocks.index');
             Route::get('/stock-request', [StockRequestController::class, 'index'])->name('stock.requests');
@@ -55,13 +60,15 @@ Route::middleware(['user.login'])->group(function () {
         Route::post('/users/assign_role', [UserController::class, 'assign_role'])->name('users.assign_user_role');
     });
 
-    Route::middleware(['doctor.check-type'])->group(function(){
+    Route::middleware(['doctor.check-type'])->group(function () {
         Route::prefix('doctor')->group(function () {
             Route::get('/dashboard', [DoctorController::class, 'show_doctor_dashboard'])->name('doctors.dashboard');
             Route::get('/appointments', [DoctorController::class, 'show_pending_appointments'])->name('doctors.show_pending_appointments');
             Route::get('/show_patients', [DoctorController::class, 'show_patients'])->name('doctors.show_patients');
-            Route::get('/profile',[DoctorController::class,'show_doctor_profile_page'])->name('doctors.profile');
-            Route::get('/logout',[DoctorController::class,'logout'])->name('doctors.logout');
+            Route::get('/profile', [DoctorController::class, 'show_doctor_profile_page'])->name('doctors.profile');
+            Route::get('/logout', [DoctorController::class, 'logout'])->name('doctors.logout');
+
+            Route::post('/patient/admit',[PatientController::class,'send_patient_admitting_request'])->name('patient.admit');
         });
     });
 });

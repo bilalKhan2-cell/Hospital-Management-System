@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -73,14 +74,17 @@ class DoctorController extends Controller
         if ($request->ajax()) {
             return DataTables::of(Patient::where('is_checkup', 0)->where('doctor_id', Auth::guard('doctor')->user()->id)->get())
                 ->addIndexColumn()
-                ->addColumn('action', function () {
-                    return "Click Here";
+                ->addColumn('action', function (Patient $patient) {
+                    $btnActions = $patient->is_checkup == 0 ? "<button id='".$patient->id."' title='Send Patient Admitting Request' data-toggle='modal' data-target='#WardModal' onclick='CreateAdmitRequest(this)' class='btn btn-sm btn-info'><i class='fa fa-user-plus'></i></button>" : '';
+                    return $btnActions;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
-        return view('doctor.patient_list');
+        return view('doctor.patient_list',[
+            'ward_list' => Ward::pluck('name','id')
+        ]);
     }
 
     public function show_doctor_profile_page(){
