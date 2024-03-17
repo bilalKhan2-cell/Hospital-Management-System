@@ -15,7 +15,7 @@
 
     {!! Form::open(['route' => 'user.check', 'method' => 'POST']) !!}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Email:', '') !!}
                 {!! Form::email('email', '', ['id' => 'txtUserEmailAddress', 'class' => 'form-control']) !!}
@@ -24,7 +24,7 @@
                 @enderror
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-4">
             <div class="form-group">
                 {!! Form::label('Password', '') !!}
                 {!! Form::password('password', ['id' => 'txtUserPassword', 'class' => 'form-control']) !!}
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="form-group">
+            <div class="form-group mt-2">
                 {{ Form::submit('Login', ['class' => 'btn btn-sm btn-info']) }}
             </div>
         </div>
