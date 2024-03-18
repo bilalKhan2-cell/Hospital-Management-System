@@ -1,16 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlockController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\DesignationController;
-use App\Http\Controllers\DoctorController;
-use App\Http\Controllers\MedicinesController;
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\StockRequestController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\WardController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{
+    BlockController,
+    DepartmentController,
+    DesignationController,
+    DoctorController,
+    MedicinesController,
+    PatientController,
+    StockRequestController,
+    SupplierController,
+    WardController,
+    UserController
+};
 
 Route::get('/', [UserController::class, 'show_user_login_page'])->name('user.login');
 Route::post('/user/login', [UserController::class, 'login'])->name('user.check');
