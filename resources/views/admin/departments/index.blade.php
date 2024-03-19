@@ -25,6 +25,7 @@
                         <th>Name</th>
                         <th>Block</th>
                         <th>Description</th>
+                        <th>Registerd By</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -61,6 +62,13 @@
                 {
                     data: 'description',
                     name: 'description'
+                },
+                {
+                    data: 'user',
+                    name: 'user',
+                    render: function(result) {
+                        return "USER-"+result.id + " ("+ result.name + ")";
+                    }
                 },
                 {
                     data: 'action',

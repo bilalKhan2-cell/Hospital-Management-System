@@ -1,5 +1,5 @@
 {!! Form::open([
-    'route' => $block == null ? 'departments.store' : ['departments.update', $department->id],
+    'route' => $department == null ? 'departments.store' : ['departments.update', $department->id],
     'method' => $department == null ? 'POST' : 'PUT',
 ]) !!}
 

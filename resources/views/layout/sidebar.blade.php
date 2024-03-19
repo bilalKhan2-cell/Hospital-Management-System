@@ -22,14 +22,16 @@
                 </a>
             </li>
 
-            <li class="gui-folder">
-                <a href="{{ route('users.index') }}">
-                    <div class="gui-icon">
-                        <i class="md md-person"></i>
-                    </div>
-                    <span class="title">Users</span>
-                </a>
-            </li>
+            @if (Auth::guard('web')->user()->id == 1)
+                <li class="gui-folder">
+                    <a href="{{ route('users.index') }}">
+                        <div class="gui-icon">
+                            <i class="md md-person"></i>
+                        </div>
+                        <span class="title">Users</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="gui-folder">
                 <a href="{{ route('doctors.index') }}">
@@ -84,7 +86,8 @@
 
                 <ul>
                     <li><a href="{{ route('patients.index') }}"><span class="title">Manage Patients</span></a></li>
-                    <li><a href="{{route('patients.admitting')}}"><span class="title">Manage Patients Recieving</span></a></li>
+                    <li><a href="{{ route('patients.admitting') }}"><span class="title">Manage Patients
+                                Recieving</span></a></li>
                 </ul>
             </li>
 

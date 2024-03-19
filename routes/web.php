@@ -42,6 +42,8 @@ Route::middleware(['user.login'])->group(function () {
         Route::prefix('patient')->group(function(){
             Route::get('/admitting',[PatientController::class,'show_admitting_request_patients'])->name('patients.admitting');
             Route::get('/admitting/create/{id}',[PatientController::class,'create_admitting_request'])->name('patient.create_admitting');
+
+            Route::post('/admitting/store/{id}',[PatientController::class,'submit_admitting_request'])->name('patients.store_admitting');
         });
 
         Route::prefix('stock')->group(function () {
@@ -74,3 +76,7 @@ Route::middleware(['user.login'])->group(function () {
         });
     });
 });
+
+Route::fallback(function(){
+    return view('404');
+})->name('error');

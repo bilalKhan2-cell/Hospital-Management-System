@@ -99,7 +99,7 @@ class PatientController extends Controller
     public function show_admitting_request_patients(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(PatientRecieving::with('patient', 'patient.doctor')->where('is_admitted', 0)->get())
+            return DataTables::of(PatientRecieving::with('patient','user', 'patient.doctor')->get())
                 ->addIndexColumn()
                 ->addColumn('action', function (PatientRecieving $patientRecieving) {
                     return '<a href="' . route('patient.create_admitting', $patientRecieving->id) . '" class="btn btn-sm btn-outline-info rounded-circle"><i class="md md-edit"></i></a>';
@@ -114,9 +114,29 @@ class PatientController extends Controller
     public function create_admitting_request($id)
     {
         $data = PatientRecieving::find($id);
-        return view('admin.patient_recieving.create', [
-            'patient' => Patient::find($data->patient_id),
-            'patient_recieving' => $data
+        if (!empty($data)) {
+            return view('admin.patient_recieving.create', [
+                'patient' => $data->patient,
+                'patient_recieving' => $data
+            ]);
+        } else {
+            return redirect()->route('error', ['fallbackPlaceholder' => 'fallbackPlaceholder']);
+        }
+    }
+
+    public function submit_admitting_request(Request $request, $id)
+    {
+        $request->validate([
+            'attendant_name' => 'required',
+            'cnic' => 'required',
+            'contact_info' => 'required'
+        ], [
+            'name.required' => 'Attendant Name is Required',
+            'cnic.required' => 'Attendant CNIC is Required',
+            'contact_info.required' => "Attendant Contact No. is Required"
         ]);
+
+        PatientRecieving::find($id)->update(['attendant_name' => $request->attendant_name, 'user_id' => Auth::guard('web')->user()->id, 'attendant_cnic' => $request->cnic, 'attendant_contact_info' => $request->contact_info, 'is_admitted' => 1]);
+        return redirect()->route('patients.admitting')->with('success', 'Patient Admitted Successfully..');
     }
 }

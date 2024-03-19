@@ -21,7 +21,7 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(Department::with('block')->get())
+            return DataTables::of(Department::with('block','user')->get())
                 ->addIndexColumn()
                 ->addColumn("action", function (Department $department) {
                     $btn = '<a href="' . route('departments.edit', $department->id) . '" class="edit btn btn-info btn-sm"><i class="md md-edit"></i></a>';

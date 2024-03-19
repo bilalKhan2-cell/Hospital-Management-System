@@ -11,6 +11,11 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12">
+
+            @if (session()->has('success'))
+                {!! ShowUnCardAlert('success', session()->get('success')) !!}
+            @endif
+
             <table id="tblPatientsRecievingsRequests" class="table small table-hover table-striped table-bordered">
                 <thead>
                     <tr>
@@ -20,6 +25,7 @@
                         <th>Contact Info</th>
                         <th>CNIC</th>
                         <th>Requested By</th>
+                        <th>Accepted By</th>
                         <th>Admitted</th>
                         <th>Action</th>
                     </tr>
@@ -79,13 +85,26 @@
                     }
                 },
                 {
+                    data:'user',
+                    name:'user',
+                    render:function(result){
+                        if(result!=null){
+                            return "USER-"+result.id+" ("+ result.name +")";
+                        }
+
+                        else {
+                            return ''
+                        }
+                    }
+                },
+                {
                     data: 'is_admitted',
                     name: 'is_admitted',
                     render: function(result) {
                         if (result == 1) {
-                            return '<span class="text-success text-sm">Admitted</span>';
+                            return '<span class="text-success">Admitted</span>';
                         } else {
-                            return '<span class="text-danger text-sm0">Not Admitted</span>';
+                            return '<span class="text-danger">Not Admitted</span>';
                         }
                     }
                 },
@@ -96,6 +115,8 @@
                     searchable: false
                 }
             ]
-        })
+        });
+
+        $(".alert").delay(3500).fadeOut()
     </script>
 @endpush

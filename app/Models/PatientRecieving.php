@@ -37,4 +37,8 @@ class PatientRecieving extends Model
     {
         return $this->belongsTo(Ward::class, 'ward_id');
     }
+
+    public function setAttendantNameAttribute($value){
+        return $this->attributes['attendant_name'] = ucwords($value);
+    }
 }

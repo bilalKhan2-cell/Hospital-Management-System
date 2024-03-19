@@ -61,8 +61,8 @@
                                         <button id="btn_med_{{ $value->id }}" onclick="SaveQuantity(this)"
                                             class="btn btn-sm btn-info">Save</button>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <span id="label_med_{{ $value->id }}" style="color:#0d6efd;"></span>
+                                    <div class="col-sm-5">
+                                        <span id="label_med_{{ $value->id }}" style=""></span>
                                     </div>
                                 </div>
                             </td>
@@ -98,6 +98,10 @@
                 success: function(resp) {
                     if (resp == 1) {
                         $("#label_" + medicine_id).html('Item Quantity Save Successfully').delay(2000).fadeOut().removeClass('text-primary').addClass('text-success');;
+                    }
+
+                    else {
+                        $("#label_" + medicine_id).html("Approving Quantity Must Be Equal or Less Then Requested Quantity").removeClass('text-primary').addClass('text-danger').delay(2000).fadeOut();
                     }
                 }
             })

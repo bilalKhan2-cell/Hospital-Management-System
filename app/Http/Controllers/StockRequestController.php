@@ -15,7 +15,7 @@ class StockRequestController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(StockRequestsMaster::with('approver')->where('initiated_by', Auth::user()->id)->orderBy('id','desc'))
+            return DataTables::of(StockRequestsMaster::with('approver')->where('initiated_by', Auth::user()->id)->orderBy('id', 'desc'))
                 ->addIndexColumn()
                 ->addColumn('action', function (StockRequestsMaster $stockRequestsMaster) {
                     $buttons = "<a href='" . route('stocks.show', $stockRequestsMaster->id) . "' class='btn btn-sm small btn-primary'>View</a>";
@@ -40,7 +40,7 @@ class StockRequestController extends Controller
 
     public function show($id)
     {
-        $supplier_id = StockRequestsMaster::with('supplier')->where('id',$id)->first(['supplier_ID']);
+        $supplier_id = StockRequestsMaster::with('supplier')->where('id', $id)->first(['supplier_ID']);
         return view('admin.stocks.show', [
             'supplier' => Supplier::find($supplier_id),
             'notes' => StockRequestsMaster::find($id)->notes,
@@ -133,8 +133,13 @@ class StockRequestController extends Controller
 
     public function approve_medicine(Request $request)
     {
-        StockRequest::find($request->request_id)->update(['approved_quantity' => $request->approving_quantity]);
-        return 1;
+        $stock_request_data = StockRequest::find($request->request_id);
+        if ($request->approving_quantity > $stock_request_data->quantity) {
+            return 0;
+        } else {
+            $stock_request_data->update(['approved_quantity' => $request->approving_quantity]);
+            return 1;
+        }
     }
 
     public function approve_request(Request $request)
