@@ -68,6 +68,7 @@ class UserController extends Controller
 
         $user = User::create($user_data);
         $password = bcrypt(Str::random(8));
+        User::where(['id',$user->id])->update(['password' => $password]);
         $emailContent = view('email.UserRegistration', ['password' => $password, 'user' => $user])->render();
         Mail::to($user->email)->send(new UserRegistrationMail($emailContent));
         if ($user) {

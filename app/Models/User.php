@@ -76,4 +76,8 @@ class User extends Authenticatable
     public function user_designation(){
         return $this->belongsTo(Designation::class,'designation_id');
     }
+
+    public function setNameAttribute($value){
+        return $this->attributes['name'] = ucwords($value);
+    }
 }
