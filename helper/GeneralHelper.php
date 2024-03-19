@@ -25,34 +25,3 @@ function ShowUnCardAlert($class, $content)
         <span>' . $content . '</span>
     </div>';
 }
-
-function GridView($class, $headers = [], $data = [])
-{
-    $table_strng = "<table class='" . $class . "'>";
-
-    $table_strng .= "<thead>";
-
-    foreach ($headers as $key => $value) {
-        $table_strng .= "<tr>";
-        $table_strng .= "<th>";
-        $table_strng .= $value;
-        $table_strng .= "</th>";
-        $table_strng .= "</tr>";
-    }
-
-    $table_strng .= "</thead>";
-
-    $table_strng .= "<tbody>";
-
-    foreach ($data as $key => $value) {
-        $table_strng .= "<tr>";
-        $table_strng .= "<th>";
-        $table_strng .= $value;
-        $table_strng .= "</th>";
-        $table_strng .= "</tr>";
-    }
-
-    $table_strng .= "</tbody>";
-
-    $table_strng .= '</table>';
-}
