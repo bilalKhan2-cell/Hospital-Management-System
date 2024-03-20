@@ -88,6 +88,7 @@
                     <li><a href="{{ route('patients.index') }}"><span class="title">Manage Patients</span></a></li>
                     <li><a href="{{ route('patients.admitting') }}"><span class="title">Manage Patients
                                 Recieving</span></a></li>
+                    <li><a href="{{route('patients.show_outcome')}}"><span class="title">Manage Patients Outcome</span></a></li>
                 </ul>
             </li>
 

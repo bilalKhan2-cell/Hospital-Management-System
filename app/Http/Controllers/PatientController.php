@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\PatientOutcome;
 use App\Models\PatientRecieving;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -99,7 +100,7 @@ class PatientController extends Controller
     public function show_admitting_request_patients(Request $request)
     {
         if ($request->ajax()) {
-            return DataTables::of(PatientRecieving::with('patient','user', 'patient.doctor')->get())
+            return DataTables::of(PatientRecieving::with('patient', 'user', 'patient.doctor')->get())
                 ->addIndexColumn()
                 ->addColumn('action', function (PatientRecieving $patientRecieving) {
                     return '<a href="' . route('patient.create_admitting', $patientRecieving->id) . '" class="btn btn-sm btn-outline-info rounded-circle"><i class="md md-edit"></i></a>';
@@ -138,5 +139,27 @@ class PatientController extends Controller
 
         PatientRecieving::find($id)->update(['attendant_name' => $request->attendant_name, 'user_id' => Auth::guard('web')->user()->id, 'attendant_cnic' => $request->cnic, 'attendant_contact_info' => $request->contact_info, 'is_admitted' => 1]);
         return redirect()->route('patients.admitting')->with('success', 'Patient Admitted Successfully..');
+    }
+
+    public function list_patients_outcome(Request $request)
+    {
+
+        if ($request->ajax()) {
+            return DataTables::of(PatientOutcome::with('patient_recieving','user')->get())
+                ->addIndexColumn()
+                ->addColumn('action', function () {
+                    return 'Click Here';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.patient_outcome.index');
+    }
+
+    public function create_outcomes(){
+        return view('admin.patient_outcome.create',[
+            'in_patients' => PatientRecieving::with('patient')->get()
+        ]);
     }
 }
