@@ -158,8 +158,19 @@ class PatientController extends Controller
     }
 
     public function create_outcomes(){
+        $patients = array();
+        $in_patients = PatientRecieving::where('is_admitted',1)->get();
+
+        foreach($in_patients as $key => $value){
+            array_push($patients,Patient::find($value->patient_id);
+        }
+        
         return view('admin.patient_outcome.create',[
-            'in_patients' => PatientRecieving::with('patient')->get()
+            'in_patients' => $patients
         ]);
+    }
+
+    public function submit_outcome(Request $request){
+        return true;
     }
 }
