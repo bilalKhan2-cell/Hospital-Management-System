@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-sm-12">
             @if (session()->has('success'))
-                {!! ShowAlert('success', session()->get('success'), 'Success') !!}
+                {!! ShowUnCardAlert('success', session()->get('success')) !!}
             @endif
 
             <a href="{{ route('designations.create') }}" class="btn btn-primary float-end btn-sm">Create Designation</a>

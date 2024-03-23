@@ -13,7 +13,7 @@
         <div class="col-sm-12">
 
             @if (session()->has('success'))
-                {!! ShowAlert('success', session()->get('success'), 'Success') !!}
+                {!! ShowUnCardAlert('success', session()->get('success')) !!}
             @endif
 
             <table id="tblStockRequest" class="table table-hover table-bordered table-striped small">

@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    {!! Form::open(['route' => ['patients.store_admitting', 'id' => $patient->id], 'method' => 'POST']) !!}
+    {!! Form::open(['route' => ['patients.store_admitting', 'id' => $patient_recieving->id], 'method' => 'POST']) !!}
     <div class="row">
         <div class="col-sm-3">
             <div class="form-group">

@@ -46,6 +46,7 @@ Route::middleware(['user.login'])->group(function () {
             Route::get('/outcome/create',[PatientController::class,'create_outcomes'])->name('patients.create_outcomes');
 
             Route::post('/admitting/store/{id}',[PatientController::class,'submit_admitting_request'])->name('patients.store_admitting');
+            Route::post('/outcome/store',[PatientController::class,'submit_outcome'])->name('patients.store_outcome');
         });
 
         Route::prefix('stock')->group(function () {

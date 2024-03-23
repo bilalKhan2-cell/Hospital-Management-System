@@ -9,6 +9,11 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12">
+
+            @if(session()->has('success'))
+                {!! ShowUnCardAlert('success',session()->get('success')) !!}
+            @endif
+
             <a href="{{route('patients.create_outcomes')}}" class="btn btn-success btn-sm">Manage Outcomes</a>
             <br><br>
             <table id="tblPatientsOutcome" class="table small table-hover table-striped table-bordered">

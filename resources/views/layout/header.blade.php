@@ -36,7 +36,7 @@
                             <li><a href="{{ route('doctors.profile') }}"><i
                                         class="fa fa-fw fa-user text-primary"></i>Profile</a></li>
                             <li><a
-                                    href="@if (Auth::guard('web')->check()) {{ route('user.logout') }} @elseif(Auth::guard('doctor')->check()) {{ route('doctors.logout') }} @endif"><i
+                                    href="@if (!is_null(Auth::guard('web')->user())) {{ route('user.logout') }} @elseif(!is_null(Auth::guard('doctor')->user())) {{ route('doctors.logout') }} @endif"><i
                                         class="fa fa-fw fa-power-off text-danger"></i>
                                     Logout</a></li>
                         </ul>

@@ -13,7 +13,7 @@
         <div class="col-sm-12">
 
             @if (session()->has('success'))
-                {!! ShowAlert('success', session()->get('success'), 'Success') !!}
+                {!! ShowUnCardAlert('success', session()->get('success')) !!}
             @endif
 
             <a href="{{ route('users.create') }}" class="btn btn-btn btn-primary btn-sm">Register User</a>

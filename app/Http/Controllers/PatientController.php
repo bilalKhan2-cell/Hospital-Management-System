@@ -145,7 +145,7 @@ class PatientController extends Controller
     {
 
         if ($request->ajax()) {
-            return DataTables::of(PatientOutcome::with('patient_recieving','user')->get())
+            return DataTables::of(PatientOutcome::with('patient_recieving','patient_recieving.patient','patient_recieving.ward','user')->get())
                 ->addIndexColumn()
                 ->addColumn('action', function () {
                     return 'Click Here';
@@ -159,18 +159,41 @@ class PatientController extends Controller
 
     public function create_outcomes(){
         $patients = array();
-        $in_patients = PatientRecieving::where('is_admitted',1)->get();
-
-        foreach($in_patients as $key => $value){
-            array_push($patients,Patient::find($value->patient_id);
+        $in_patients = PatientRecieving::where('is_admitted', 1)->get();
+        
+        foreach ($in_patients as $key => $value) {
+            $patient = Patient::find($value->patient_id);
+            $patient_recieving_id = PatientRecieving::where('patient_id',$value->patient_id)->first(['id']);
+            if(!PatientOutcome::where('patient_recieving_id',$patient_recieving_id->id)->exists()){
+                $formatted_name = 'MR-' . $patient->id . ' (' . $patient->name . ')';
+                $patients[$patient->id] = $formatted_name;
+            }
         }
         
-        return view('admin.patient_outcome.create',[
-            'in_patients' => $patients
+        return view('admin.patient_outcome.create', [
+            'in_patients' => $patients,
+            'outcome_list' => PatientOutcome::$outcome_list
         ]);
     }
 
     public function submit_outcome(Request $request){
-        return true;
+        
+        $request->validate([
+            'patient_id' => 'required'
+        ],[
+            'patient_id.required' => "Please Select Patient"
+        ]);
+        
+        $patient_recieving_id = PatientRecieving::where('patient_id',$request->patient_id)->first(['id']);
+        
+        PatientOutcome::create([
+            'patient_recieving_id' => $patient_recieving_id->id,
+            'result_date' => date('y/m/d'),
+            'patient_outcome' => $request->patient_outcome,
+            'user_id' => Auth::guard('web')->user()->id,
+            'final_notes' => $request->notes
+        ]);
+
+        return redirect()->route('patients.show_outcome')->with('success','Patient Outcome Submitted Successfully..');
     }
 }

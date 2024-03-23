@@ -46,8 +46,17 @@ class Patient extends Model
 
     public function setNameAttribute($value)
     {
-        return $this->attributes['name'] = 'MR-' . ucwords($value);
+        if (isset($this->attributes['gender'])) {
+            if ($this->attributes['gender'] == 'Male') {
+                return $this->attributes['name'] = 'MR-' . ucwords($value);
+            } else {
+                return $this->attributes['name'] = "Mrs-" . ucwords($value);
+            }
+        } else {
+            return $this->attributes['name'] = 'MR-' . ucwords($value);
+        }
     }
+
 
     public function setFNameAttribute($value)
     {

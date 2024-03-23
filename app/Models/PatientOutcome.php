@@ -28,4 +28,10 @@ class PatientOutcome extends Model
     {
         return $this->belongsTo(PatientRecieving::class, 'patient_recieving_id');
     }
+
+    public static $outcome_list = array("Improved & Sent Back To Ward","Discharged","Expired","Discharged Upon Patient Request");
+
+    public function getPatientOutcomeAttribute($value){
+        return static::$outcome_list[$value];
+    }
 }

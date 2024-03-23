@@ -18,7 +18,7 @@
 
 @section('content')
     @if (session()->has('success'))
-        {!! ShowAlert('success', session()->get('success'), 'Success') !!}
+        {!! ShowUnCardAlert('success', session()->get('success')) !!}
     @endif
 
     <a href="{{ route('doctors.create') }}" class="btn btn-primary float-end btn-sm">Register Doctor</a>
