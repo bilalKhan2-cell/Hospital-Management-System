@@ -10,13 +10,13 @@
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet'
         type='text/css' />
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-1/bootstrap.css?1422792965') }}" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-1/materialadmin.css?1425466319') }}" />
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-1/font-awesome.min.css?1422529194') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-2/bootstrap.css?1422792965') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-2/materialadmin.css?1425466319') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/theme-2/font-awesome.min.css?1422529194') }}" />
     <link type="text/css" rel="stylesheet"
-        href="{{ asset('css/theme-1/material-design-iconic-font.min.css?1421434286') }}" />
-    <link rel="stylesheet" href="{{ asset('css/theme-1/libs/select2/select2.css?1424887856') }}" />
-    <link rel="stylesheet" href="{{ asset('css/theme-1/libs/DataTables/jquery.dataTables.css?1423553989') }}">
+        href="{{ asset('css/theme-2/material-design-iconic-font.min.css?1421434286') }}" />
+    <link rel="stylesheet" href="{{ asset('css/theme-2/libs/select2/select2.css?1424887856') }}" />
+    <link rel="stylesheet" href="{{ asset('css/theme-2/libs/DataTables/jquery.dataTables.css?1423553989') }}">
 
     @stack('style')
 </head>
