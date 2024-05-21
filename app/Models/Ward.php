@@ -20,11 +20,15 @@ class Ward extends Model
 
     public function get_block()
     {
-        return $this->hasOne(Block::class, 'block_id');
+        return $this->belongsTo(Block::class, 'block_id');
     }
 
     public function get_department()
     {
-        return $this->hasOne(Department::class, 'department_id');
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function setNameAttribute($value){
+        return $this->attributes['name'] = ucwords($value);
     }
 }

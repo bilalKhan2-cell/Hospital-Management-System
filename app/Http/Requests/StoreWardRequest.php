@@ -11,7 +11,7 @@ class StoreWardRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class StoreWardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'block_id' => 'required|numeric',
+            'department_id' => "required|numeric"
+        ];
+    }
+
+    public function messages(): array {
+        return [
+            'name.required' => "Ward Name Is Required",
+            'department_id.required' => "Please Select Department",
+            'block_id.required' => "Please Select Block",
+            "block_id.numeric" => "Invalid Block ID",
+            'department_id.numeric' => "Invalid Department ID",
         ];
     }
 }
