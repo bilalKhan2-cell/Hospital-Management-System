@@ -46,13 +46,13 @@ class WardController extends Controller
      */
     public function store(StoreWardRequest $request)
     {
-        Ward::create($request->only('name','block_id','comments','department_id'));
-        return redirect()->route('ward.index')->with('success',"Ward Registered Successfully..");
+        Ward::create($request->only('name', 'block_id', 'comments', 'department_id'));
+        return redirect()->route('ward.index')->with('success', "Ward Registered Successfully..");
     }
 
     public function edit(Ward $ward)
     {
-        return view('');
+        return view('admin.wards.edit', ['ward' => $ward, 'blocks' => Block::pluck('title', 'id')]);
     }
 
     /**
@@ -60,7 +60,8 @@ class WardController extends Controller
      */
     public function update(UpdateWardRequest $request, Ward $ward)
     {
-        //
+        $ward->update($request->only('name', 'block_id', 'comments', 'department_id'));
+        return redirect()->route('ward.index')->with('success', "Ward's Data Updated Successfully..");
     }
 
     /**
