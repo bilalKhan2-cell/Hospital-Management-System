@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('wards', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('comments')->nullable();
+            $table->foreignId('department_id')->constrained('departments');
+            $table->foreignId('block_id')->constrained('blocks');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

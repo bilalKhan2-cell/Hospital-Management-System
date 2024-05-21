@@ -5,15 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Ward;
 use App\Http\Requests\StoreWardRequest;
 use App\Http\Requests\UpdateWardRequest;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class WardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->ajax()){
+            return DataTables::of(Ward::all())
+            ->addColumn('action',function(Ward $ward){
+                return "<a href='" . route('department.edit', $ward->id) . "' class='btn btn-outline-info border-0 btn-sm rounded-circle'><i class='fa fa-edit'></i></a>";
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+        }
+
+        return view('admin.wards.index');
     }
 
     /**
@@ -21,7 +29,7 @@ class WardController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.wards.create');
     }
 
     /**
@@ -32,20 +40,9 @@ class WardController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ward $ward)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Ward $ward)
     {
-        //
+        return view('');
     }
 
     /**

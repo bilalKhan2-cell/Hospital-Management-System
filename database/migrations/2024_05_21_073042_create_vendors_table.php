@@ -11,17 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vendors', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('mobile_number');
-            $table->string('account_number');
-            $table->string('bank');
-            $table->string('address');
-            $table->text('remarks')->nullable();
-            $table->foreignId('user_id')->constrained('users');
-            $table->timestamps();
-        });
+        $this->down();
     }
 
     /**
